@@ -64,3 +64,4 @@ MAX_ERROR_LANDING = 5;
 %% 이미지 프로세싱
 
 S=80;
+inverseR = [0 1 ; -1 0];
