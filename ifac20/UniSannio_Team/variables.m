@@ -61,4 +61,6 @@ DELAY_LANDING = 4;
 
 MAX_ERROR_LANDING = 5;
 
+%% 이미지 프로세싱
 
+S=80;
