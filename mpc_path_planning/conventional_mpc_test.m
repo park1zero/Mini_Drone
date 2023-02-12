@@ -69,24 +69,24 @@ for i=1:5
     
     
 %     f=[vel(i)*cos(theta(i)) vel(i)*sin(theta(i)) w_acc(i) v_acc(i)]';
-    A=[1 0 -vel(i)*sin(theta(i)) cos(theta(i)); 0 1 vel(i)*cos(theta(i)) sin(theta(i)); 0 0 1 0;0 0 0 1];
-    B=[0 0; 0 0; 0 1; 1 0];
+    A=[1 0 -vel(i)*sin(theta(i))*dt cos(theta(i))*dt; 0 1 vel(i)*cos(theta(i))*dt sin(theta(i))*dt; 0 0 1 0;0 0 0 1];
+    B=[0 0; 0 0; 0 1*dt; 1*dt 0];
 
     if i==1
 %     prob.Constraints.const1=xy1==x0+f.*dt;
-    prob.Constraints.const1=xy1==A*x0+B*u0.*dt;
+    prob.Constraints.const1=xy1==A*x0+B*u0;
     elseif i==2
 %     prob.Constraints.const2=xy2==xy1+f.*dt;
-    prob.Constraints.const2=xy2==A*xy1+B*u1.*dt;
+    prob.Constraints.const2=xy2==A*xy1+B*u1;
     elseif i==3
 %     prob.Constraints.const3=xy3==xy2+f.*dt;
-    prob.Constraints.const3=xy3==A*xy2+B*u2.*dt;
+    prob.Constraints.const3=xy3==A*xy2+B*u2;
     elseif i==4
 %     prob.Constraints.const4=xy4==xy3+f.*dt;
-    prob.Constraints.const4=xy4==A*xy3+B*u3.*dt;
+    prob.Constraints.const4=xy4==A*xy3+B*u3;
     elseif i==5
 %     prob.Constraints.const5=xy5==xy4+f.*dt;
-    prob.Constraints.const5=xy5==xy4+B*u4.*dt;
+    prob.Constraints.const5=xy5==xy4+B*u4;
     end
 end
 
