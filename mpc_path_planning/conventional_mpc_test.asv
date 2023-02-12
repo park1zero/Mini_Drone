@@ -38,18 +38,12 @@ wa=1;
 wy=1;
 wk=1;
 
-
-% x=zeros(6,1);
-% y=zeros(6,1);
-% theta=zeros(6,1);
-% vel=zeros(6,1);
-% a=zeros(5,1);
-
-
 x(1)=xy(1);
 y(1)=xy(2);
 theta(1)=xy(3);
 vel(1)=xy(4);
+
+const=zeros(5,1);
 
 for i=1:5
     x(i+1)=xy(4*(i)+1);
@@ -57,36 +51,30 @@ for i=1:5
     theta(i+1)=xy(4*(i)+3);
     vel(i+1)=xy(4*(i)+4);
 
-%     v_acc(i)=u(2*(i-1)+1);
-%     w_acc(i)=u(2*(i-1)+2);
+    v_acc(i)=u(2*(i-1)+1);
+    w_acc(i)=u(2*(i-1)+2);
 
-    
-    %a(i)=wgx*(x(i+1)-x_d)^2+wgy*(y(i+1)-y_d)^2;%+wa*(v_acc(i))^2;%+wy*wk^2;
-    
-    A=eye(2);
-    a(i)=[x(i+1)-x_d;y(i+1)-y_d]'*A*[x(i+1)-x_d;y(i+1)-y_d];
+    a(i)=wgx*(x(i+1)-x_d)^2+wgy*(y(i+1)-y_d)^2;%+wa*(v_acc(i))^2;%+wy*wk^2;
 
-    
-    
 %     f=[vel(i)*cos(theta(i)) vel(i)*sin(theta(i)) w_acc(i) v_acc(i)]';
-    A=[1 0 -vel(i)*sin(theta(i)) cos(theta(i)); 0 1 vel(i)*cos(theta(i)) sin(theta(i)); 0 0 1 0;0 0 0 1];
+    A=[1 0 -vel(i)*sin(theta(i)) cos(theta(i)); 0 1 v*cos(theta(i)) sin(theta(i)); 0 0 1 0;0 0 0 1];
     B=[0 0; 0 0; 0 1; 1 0];
 
     if i==1
-%     prob.Constraints.const1=xy1==x0+f.*dt;
-    prob.Constraints.const1=xy1==A*x0+B*u0.*dt;
+    prob.Constraints.const1=xy1==A*x0+B.*dt;
+    
     elseif i==2
-%     prob.Constraints.const2=xy2==xy1+f.*dt;
-    prob.Constraints.const2=xy2==A*xy1+B*u1.*dt;
+    prob.Constraints.const2=xy2==xy1+f.*dt;
+
     elseif i==3
-%     prob.Constraints.const3=xy3==xy2+f.*dt;
-    prob.Constraints.const3=xy3==A*xy2+B*u2.*dt;
+    prob.Constraints.const3=xy3==xy2+f.*dt;
+    
     elseif i==4
-%     prob.Constraints.const4=xy4==xy3+f.*dt;
-    prob.Constraints.const4=xy4==A*xy3+B*u3.*dt;
+    prob.Constraints.const4=xy4==xy3+f.*dt;
+
     elseif i==5
-%     prob.Constraints.const5=xy5==xy4+f.*dt;
-    prob.Constraints.const5=xy5==xy4+B*u4.*dt;
+    prob.Constraints.const5=xy5==xy4+f.*dt;
+
     end
 end
 
@@ -115,6 +103,7 @@ prob.Objective=a(1)+a(2)+a(3)+a(4)+a(5);
 
 %% QP
 
+str.x0=[.5;.5;.5;.5];
 str.x1=zeros(4,1);
 str.x2=zeros(4,1);
 str.x3=zeros(4,1);
@@ -126,9 +115,10 @@ str.u2=zeros(2,1);
 str.u3=zeros(2,1);
 str.u4=zeros(2,1);
 
-opts=optimoptions("fmincon",Display="none");
 
-[result,fval,exitflag,output,lambda] = solve(prob,str,Options=opts);
+
+
+[result,fval,exitflag,output,lambda] = solve(prob,str);
 
 y = output;
 toc
