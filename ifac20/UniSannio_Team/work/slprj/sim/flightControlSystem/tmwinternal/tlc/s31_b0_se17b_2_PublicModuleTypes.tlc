@@ -1,0 +1,16 @@
+%implements s31_b0_se17b_2_PublicModuleTypes "C"
+
+%function PublicModuleTypes(block) Output
+
+#ifndef struct_tag_XlO2h99uDeEYSa2APM6LVB
+#define struct_tag_XlO2h99uDeEYSa2APM6LVB
+struct tag_XlO2h99uDeEYSa2APM6LVB
+{
+    int32_T isInitialized;
+};
+#endif /* struct_tag_XlO2h99uDeEYSa2APM6LVB */
+#ifndef typedef_bjqsgn0csy
+#define typedef_bjqsgn0csy
+typedef struct tag_XlO2h99uDeEYSa2APM6LVB bjqsgn0csy;
+#endif /* typedef_bjqsgn0csy */
+%endfunction

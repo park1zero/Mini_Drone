@@ -1,0 +1,134 @@
+%implements s31_b0_se17b_1_TLCInterface "C"
+
+%function getDWorkAddr_19_5_1_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_AccessArg(1 ,0, 1)>
+
+%return "&localDW->puq03cpvbg"
+%endfunction
+
+%function getDWork_19_5_1_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_AccessArg(1 ,0, 1)>
+
+%return "localDW->puq03cpvbg"
+%endfunction
+
+%function getDWorkAddr_19_5_1_1_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_AccessArg(1 ,1, 1)>
+
+%return "&localDW->puq03cpvbg"
+%endfunction
+
+%function getDWork_19_5_1_1_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_AccessArg(1 ,1, 1)>
+
+%return "localDW->puq03cpvbg"
+%endfunction
+
+%function getInputAddr_19_5_1_4_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_AccessArg(1 ,4, 4)>
+
+%return "&localB->gf43jvg1av_ldqodwenvz" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_19_5_1_4_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_AccessArg(1 ,4, 4)>
+
+%return "localB->gf43jvg1av_ldqodwenvz" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_19_5_1_4_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_AccessArg(1 ,4, 5)>
+
+%return "&localDW->puq03cpvbg"
+%endfunction
+
+%function getDWork_19_5_1_4_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_AccessArg(1 ,4, 5)>
+
+%return "localDW->puq03cpvbg"
+%endfunction
+
+%function getInputAddr_19_7_1_4_1_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_AccessArg(1 ,4, 4)>
+
+%return "&localB->c01pvjzgld_cl54gopm0x"
+%endfunction
+
+%function getInput_19_7_1_4_1_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_AccessArg(1 ,4, 4)>
+
+%return "localB->c01pvjzgld_cl54gopm0x"
+%endfunction
+
+%function getInputAddr_19_7_1_4_1_0_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_AccessArg(1 ,4, 4)>
+
+%return "&localB->bo3oxojl0y_kkiq3xxxve"
+%endfunction
+
+%function getInput_19_7_1_4_1_0_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_AccessArg(1 ,4, 4)>
+
+%return "localB->bo3oxojl0y_kkiq3xxxve"
+%endfunction
+
+%function getInputAddr_19_7_1_4_1_0_2(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_AccessArg(1 ,4, 4)>
+
+%return "&localB->dihvw4fr5h_cxarnvbvui"
+%endfunction
+
+%function getInput_19_7_1_4_1_0_2(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_AccessArg(1 ,4, 4)>
+
+%return "localB->dihvw4fr5h_cxarnvbvui"
+%endfunction
+
+%function getInputAddr_19_7_1_4_1_0_3(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_AccessArg(1 ,4, 4)>
+
+%return "&localB->itx5q4vkny_bhxxfovxdy"
+%endfunction
+
+%function getInput_19_7_1_4_1_0_3(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_AccessArg(1 ,4, 4)>
+
+%return "localB->itx5q4vkny_bhxxfovxdy"
+%endfunction
+
+%function getOutputAddr_19_7_1_4_1_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_AccessArg(1 ,4, 4)>
+
+%return "&localB->mce2wyyoqh_lxo5edjg3c" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getOutput_19_7_1_4_1_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_AccessArg(1 ,4, 4)>
+
+%return "localB->mce2wyyoqh_lxo5edjg3c" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_19_5_1_8_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_AccessArg(1 ,8, 1)>
+
+%return "&localDW->puq03cpvbg"
+%endfunction
+
+%function getDWork_19_5_1_8_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_AccessArg(1 ,8, 1)>
+
+%return "localDW->puq03cpvbg"
+%endfunction
+
+%function getDWorkAddr_19_5_1_9_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_AccessArg(1 ,9, 1)>
+
+%return "&localDW->puq03cpvbg"
+%endfunction
+
+%function getDWork_19_5_1_9_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_AccessArg(1 ,9, 1)>
+
+%return "localDW->puq03cpvbg"
+%endfunction
+

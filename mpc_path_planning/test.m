@@ -1,4 +1,16 @@
-x0=10.*rand(4,1);
+x0=[0 0 0 0]';
+
 tic
-conventional_mpc_test(x0)
+fprintf("기존 kinematics linear");
+conventional_mpc_test3(x0);
 toc
+
+% tic
+% fprintf("다른 kinematics linear");
+% conventional_mpc_test2(x0);
+% toc
+% 
+% tic
+% fprintf("기존 kinematics nonlinear");
+% conventional_mpc_test3(x0);
+% toc

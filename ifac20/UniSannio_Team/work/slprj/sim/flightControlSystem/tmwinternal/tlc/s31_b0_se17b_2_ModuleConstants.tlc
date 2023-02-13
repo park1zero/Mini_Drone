@@ -1,0 +1,11 @@
+%implements s31_b0_se17b_2_ModuleConstants "C"
+
+%function ModuleConstants(block) Output
+
+
+/* Named constants for Chart: '<S194>/state machine' */
+#define c2uf4ekbxi ((uint8_T)2U)
+#define d3l1k0wo4m ((uint8_T)3U)
+#define gphf3hyxfx ((uint8_T)1U)
+#define ozxdpjknts ((uint8_T)0U)
+%endfunction

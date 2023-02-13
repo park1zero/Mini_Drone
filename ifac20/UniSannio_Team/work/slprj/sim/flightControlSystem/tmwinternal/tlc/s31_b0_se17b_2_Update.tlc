@@ -1,0 +1,102 @@
+%implements s31_b0_se17b_2_Update "C"
+
+%function UpdateForTID(block, system, tid) Output
+%if tid == 0
+%assign ::GlobalCurrentTID = 0
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%assign _modelSS = ""
+
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[19], "Update",0)
+%if SLibCG_SystemFcnArgAccessed("lsjhvu4egy",19,0)
+%<SLibCG_AccessArg(2 ,8, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("lsjhvu4egy", ["%<::tSimStruct>", "&ksm0js2nhsy.otjykwnhb3s", "&dqykr4eggmg.otjykwnhb3s", "&b1hr2q0zjh.otjykwnhb3s"], 19, 0, 7, 0, 7, 26)>\
+%assign ss = ::CompiledModel.System[19]
+%if !LibSystemIsInlined(ss)
+;
+%else
+\
+%endif
+%endif
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[2].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Update", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, FcnSysModuleIsRateGrouping(rtmArgSys, "Update"))
+%<SLibCG_AccessArg(2, 8, 0)>
+%endif
+%if SLibCG_ArgAccessed(2, 8, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Update", rtmArgSys.CurrentTID, FcnSysModuleIsRateGrouping(rtmArgSys, "Update"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface)) ||...
+(GenerateClassInterface && SLibIsMultiInstanceServer(rtmArgSys))
+%<SLibCG_UndoAccessArg(2, 8, 0)>
+%endif
+%assign ::GlobalCurrentTID = []
+%endif
+%if tid == 1
+%assign ::GlobalCurrentTID = 1
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+dqykr4eggmg.ljy41czb1j = ksm0js2nhsy.h5q0iw2xzb;
+dqykr4eggmg.bl34ukqcnt = ksm0js2nhsy.edejqj3kho;
+dqykr4eggmg.i5gygypovx = ksm0js2nhsy.d2sfzez2ox;
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[2].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Update", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, FcnSysModuleIsRateGrouping(rtmArgSys, "Update"))
+%<SLibCG_AccessArg(2, 9, 0)>
+%endif
+%if SLibCG_ArgAccessed(2, 9, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Update", rtmArgSys.CurrentTID, FcnSysModuleIsRateGrouping(rtmArgSys, "Update"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface)) ||...
+(GenerateClassInterface && SLibIsMultiInstanceServer(rtmArgSys))
+%<SLibCG_UndoAccessArg(2, 9, 0)>
+%endif
+%assign ::GlobalCurrentTID = []
+%endif
+%if tid == 2
+%assign ::GlobalCurrentTID = 2
+%assign ::GlobalCurrentTID = []
+%endif
+%endfunction
+%function UpdateFcnProtoTypeForTID(block, system, tid) Output
+%if tid == 0
+%assign ::GlobalCurrentTID = 0
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void pyvd4pdf3iTID0(\
+%assign comma = ""
+%if SLibCG_ArgAccessed(2, 8, 0)
+%<comma>%<::tSimStructType> * const %<::tSimStruct>\
+%assign comma = ", "
+%<SLibUpdateSymbolForFunction("pyvd4pdf3iTID0", SLibGetFcnDefinitionRTMSymbolName(), TLC_FALSE)>\
+%endif
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(2, 8, fcnProtoType)>
+%assign ::GlobalCurrentTID = []
+%endif
+%if tid == 1
+%assign ::GlobalCurrentTID = 1
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void pyvd4pdf3iTID1(\
+%assign comma = ""
+%if SLibCG_ArgAccessed(2, 9, 0)
+%<comma>%<::tSimStructType> * const %<::tSimStruct>\
+%assign comma = ", "
+%<SLibUpdateSymbolForFunction("pyvd4pdf3iTID1", SLibGetFcnDefinitionRTMSymbolName(), TLC_FALSE)>\
+%endif
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(2, 9, fcnProtoType)>
+%assign ::GlobalCurrentTID = []
+%endif
+%if tid == 2
+%assign ::GlobalCurrentTID = 2
+%assign ::GlobalCurrentTID = []
+%endif
+%endfunction

@@ -1,0 +1,59 @@
+%implements s31_b0_se17b_1_Disable "C"
+
+%function Disable(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+if (localDW->jtnjtissuf) {
+    localB->j42uqprebt[0] = localP->P_34;
+    localB->j42uqprebt[1] = localP->P_34;
+    localDW->jtnjtissuf = false;
+}
+if (localDW->cmab1dak24) {
+    localB->ozbnyngphj[0] = localP->P_35;
+    localB->ozbnyngphj[1] = localP->P_35;
+    localDW->cmab1dak24 = false;
+}
+if (localDW->bgpppixzwr) {
+    localB->cfcvjoerpa[0] = localP->P_79;
+    localB->cfcvjoerpa[1] = localP->P_79;
+    localDW->bgpppixzwr = false;
+}
+if (localDW->j20mj4ai3a) {
+    localB->bkehspj2gn[0] = localP->P_80;
+    localB->bkehspj2gn[1] = localP->P_80;
+    localDW->j20mj4ai3a = false;
+}
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[1].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Disable", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, FcnSysModuleIsRateGrouping(rtmArgSys, "Disable"))
+%<SLibCG_AccessArg(1, 7, 0)>
+%endif
+%if SLibCG_ArgAccessed(1, 7, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Disable", rtmArgSys.CurrentTID, FcnSysModuleIsRateGrouping(rtmArgSys, "Disable"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface)) ||...
+(GenerateClassInterface && SLibIsMultiInstanceServer(rtmArgSys))
+%<SLibCG_UndoAccessArg(1, 7, 0)>
+%endif
+%endfunction
+%function DisableFcnProtoType(block, system) Output
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void kegjp2lgms(\
+%assign comma = ""
+%if SLibCG_ArgAccessed(1, 7, 0)
+%<comma>%<::tSimStructType> * const %<::tSimStruct>\
+%assign comma = ", "
+%<SLibUpdateSymbolForFunction("kegjp2lgms", SLibGetFcnDefinitionRTMSymbolName(), TLC_FALSE)>\
+%endif
+%<comma>eo4bbte2ey *localB\
+%assign comma = ", "
+%<comma>dmp1xsadgu *localDW\
+%assign comma = ", "
+%<comma>nu4qaxumex *localP\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(1, 7, fcnProtoType)>
+%endfunction

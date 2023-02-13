@@ -6,9 +6,8 @@ function y= conventional_mpc_test(x0)%,left_low,left_high,right_low,right_high)
 % x0=zeros(4,1);
 % x0=[.5;.5;.5;.5];
 % end
-tic
-x_d=1;
-y_d=1;
+x_d=10;
+y_d=10;
 
 
 dt=0.1;
@@ -27,7 +26,7 @@ xy5= optimvar('x5', 4, 1);
 u=[u0 u1 u2 u3 u4];
 xy=[x0 xy1 xy2 xy3 xy4 xy5];
 
-prob = optimproblem('ObjectiveSense','min');
+prob = optimproblem('ObjectiveSense','minimize');
 
 % x_d=(left_high(1)+right_high(1))/2;
 % y_d=(left_high(2)+right_high(2))/2;
@@ -90,6 +89,8 @@ for i=1:5
     end
 end
 
+prob.Constraints.const6=u0(1)<=3;
+
 prob.Objective=a(1)+a(2)+a(3)+a(4)+a(5);
 
 %% state space 
@@ -114,7 +115,7 @@ prob.Objective=a(1)+a(2)+a(3)+a(4)+a(5);
 
 
 %% QP
-
+str.x0=x0;
 str.x1=zeros(4,1);
 str.x2=zeros(4,1);
 str.x3=zeros(4,1);
@@ -129,7 +130,5 @@ str.u4=zeros(2,1);
 opts=optimoptions("fmincon",Display="none");
 
 [result,fval,exitflag,output,lambda] = solve(prob,str,Options=opts);
-
-y = output;
-toc
+y=result.x2
 end

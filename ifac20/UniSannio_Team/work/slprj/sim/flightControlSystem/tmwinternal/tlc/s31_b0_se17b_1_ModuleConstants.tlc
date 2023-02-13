@@ -1,0 +1,11 @@
+%implements s31_b0_se17b_1_ModuleConstants "C"
+
+%function ModuleConstants(block) Output
+
+
+/* Named constants for Chart: '<S37>/Chart' */
+#define kfn3ri5fpt ((uint8_T)2U)
+#define njmvi2ethx ((uint8_T)3U)
+#define nugyeiiptz ((uint8_T)0U)
+#define o3sdznbtyd ((uint8_T)1U)
+%endfunction
