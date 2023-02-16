@@ -34,21 +34,16 @@ B(4,2)=1/Iy;
 B(5,3)=1/Iz;
 B(6,4)=1/m;
 
-A_n=zeros(Horizon,12,12);
-temp=1;
-
-
+temp=A;
 for i = 1:Horizon
-    
-    temp=temp.*A;
-    A_n(i,:,:)=temp;
-   
+    A_n{i}=temp;
+    temp=temp*A;
 end
 
 
 Gamma=[];
 for i =1:Horizon
-    temp=A_n(i,:,:);
+    temp=A_n{i};
     Gamma=[Gamma;temp];
 end
 
@@ -58,7 +53,7 @@ PI=[];
 temp=B;
 for i = 1:Horizon
     AB{i}=temp;
-    temp=A*temp
+    temp=A*temp;
 end
 
 zero12=zeros(12,4);
@@ -84,5 +79,17 @@ row19=  [AB{19} AB{18} AB{17} AB{16} AB{15} AB{14} AB{13} AB{12} AB{11} AB{10} A
 row20=  [AB{20} AB{19} AB{18} AB{17} AB{16} AB{15} AB{14} AB{13} AB{12} AB{11} AB{10} AB{9} AB{8} AB{7} AB{6} AB{5} AB{4} AB{3} AB{2} B];
 PI=[row1;row2;row3;row4;row5;row6;row7;row8;row9;row10;row11;row12;row13;row14;row15;row16;row17;row18;row19;row20];
 
+
+%% quadprog
+
+%cost matrix
+R=eye(80);
+Q=eye(240);
+
+H=R+PI'*Q*PI;
+f=(x'*Gamma'*Q*PI);
+Imax=repmat(10000,240,1);
+Imin=repmat(-10000,240,1);
+U=quadprog(H,f,[PI;-PI],[Imax-Gamma*x; Imin+Gamma*x]);
 
 end
