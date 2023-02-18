@@ -1,10 +1,16 @@
-function y= conventional_mpc(x)
+function result= conventional_mpc(x,x_d,y_d,z_d)
 %using drone dynamics
-
+%result=[phi theta pi p q r u v w x y z];
 Horizon =20;
 
+desti=[0 0 0 0 0 0 0 0 0 x_d y_d z_d]';%destination
+desti_horizon=[];
+for i=1:Horizon
+    desti_horizon=[desti_horizon;desti];
+end
+
 %gravity
-g=-9.81;
+g=9.81;
 
 %inertia
 Ix=5.82857000000000e-05;
@@ -22,17 +28,17 @@ A=zeros(12,12);
 A(1,4)=1;
 A(2,5)=1;
 A(3,6)=1;
-A(7,2)=g;
-A(8,1)=-g;
+A(7,2)=-g;
+A(8,1)=g;
 A(10,7)=1;
 A(11,8)=1;
 A(12,9)=1;
 
 B=zeros(12,4);
-B(9,1)=1/Ix;
-B(4,2)=1/Iy;
-B(5,3)=1/Iz;
-B(6,4)=1/m;
+B(9,1)=1/m;
+B(4,2)=1/Ix;
+B(5,3)=1/Iy;
+B(6,4)=1/Iz;
 
 temp=A;
 for i = 1:Horizon
@@ -85,11 +91,20 @@ PI=[row1;row2;row3;row4;row5;row6;row7;row8;row9;row10;row11;row12;row13;row14;r
 %cost matrix
 R=eye(80);
 Q=eye(240);
+for i=1:12
+   Q(12*(Horizon-1)+i)=0; 
+end
 
 H=R+PI'*Q*PI;
-f=(x'*Gamma'*Q*PI);
+
+%f에 2배를 취해야 답이 나오는 이상한 상황에 빠짐
+f=((x)'*Gamma'*Q*PI-2*desti_horizon'*Q*PI);
 Imax=repmat(10000,240,1);
 Imin=repmat(-10000,240,1);
-U=quadprog(H,f,[PI;-PI],[Imax-Gamma*x; Imin+Gamma*x]);
+u_max=repmat([1,0.0001,0.0001,0.0001]',20,1);
+u_min=repmat(-[1,0.0001,0.0001,0.0001]',20,1);
+U=quadprog(H,f,[eye(80);-eye(80);PI;-PI],[u_max;-u_min;(Imax)-Gamma*(x); (-Imin)+Gamma*(x)]);
 
+xn=Gamma*x+PI*U;
+result=xn;
 end
