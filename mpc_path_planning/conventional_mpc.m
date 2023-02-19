@@ -2,11 +2,15 @@ function result= conventional_mpc(x,x_d,y_d,z_d)
 %using drone dynamics
 %result=[phi theta pi p q r u v w x y z];
 Horizon =20;
+dt=0.015;
 
 desti=[0 0 0 0 0 0 0 0 0 x_d y_d z_d]';%destination
+dx=x_d/Horizon;
+dy=y_d/Horizon;
+dz=z_d/Horizon;
 desti_horizon=[];
 for i=1:Horizon
-    desti_horizon=[desti_horizon;desti];
+    desti_horizon=[desti_horizon;[0 0 0 0 0 0 0 0 0 dx*i dy*i dz*i]'];
 end
 
 %gravity
@@ -42,7 +46,7 @@ B(6,4)=1/Iz;
 
 temp=A;
 for i = 1:Horizon
-    A_n{i}=temp;
+    A_n{i}=temp.*dt;
     temp=temp*A;
 end
 
@@ -58,14 +62,14 @@ PI=[];
 
 temp=B;
 for i = 1:Horizon
-    AB{i}=temp;
+    AB{i}=temp.*dt;
     temp=A*temp;
 end
 
 zero12=zeros(12,4);
 row1=   [B zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12];
 row2=   [AB{2} B zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12];
-row3=   [AB{3} AB{4} B zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12];
+row3=   [AB{3} AB{2} B zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12];
 row4=   [AB{4} AB{3} AB{2} B zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12];
 row5=   [AB{5} AB{4} AB{3} AB{2} B zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12];
 row6=   [AB{6} AB{5} AB{4} AB{3} AB{2} B zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12];
@@ -92,18 +96,18 @@ PI=[row1;row2;row3;row4;row5;row6;row7;row8;row9;row10;row11;row12;row13;row14;r
 R=eye(80);
 Q=eye(240);
 for i=1:12
-   Q(12*(Horizon-1)+i)=0; 
+   Q(12*(Horizon-1)+i)=0;
 end
-
+        
 H=R+PI'*Q*PI;
 
 %f에 2배를 취해야 답이 나오는 이상한 상황에 빠짐
-f=((x)'*Gamma'*Q*PI-2*desti_horizon'*Q*PI);
-Imax=repmat(10000,240,1);
-Imin=repmat(-10000,240,1);
-u_max=repmat([1,0.0001,0.0001,0.0001]',20,1);
-u_min=repmat(-[1,0.0001,0.0001,0.0001]',20,1);
-U=quadprog(H,f,[eye(80);-eye(80);PI;-PI],[u_max;-u_min;(Imax)-Gamma*(x); (-Imin)+Gamma*(x)]);
+f=2*((x)'*Gamma'*Q*PI-desti_horizon'*Q*PI);
+xmax=repmat(100000,240,1);
+xmin=repmat(-100000,240,1);
+u_max=repmat([10,10,10,10]',20,1);
+u_min=repmat(-[10,10,10,10]',20,1);
+U=quadprog(H,f',[eye(80);-eye(80);PI;-PI],[u_max;-u_min;(xmax)-Gamma*(x); (-xmin)+Gamma*(x)]);
 
 xn=Gamma*x+PI*U;
 result=xn;

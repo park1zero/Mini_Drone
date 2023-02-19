@@ -1,10 +1,16 @@
 function result= conventional_mpc(x,x_d,y_d,z_d)
 %using drone dynamics
 %result=[phi theta pi p q r u v w x y z];
+Horizon =20;
 
 desti=[0 0 0 0 0 0 0 0 0 x_d y_d z_d]';%destination
-
-Horizon =20;
+dx=x_d/Horizon;
+dy=y_d/Horizon;
+dz=z_d/Horizon;
+desti_horizon=[];
+for i=1:Horizon
+    desti_horizon=[desti_horizon;[0 0 0 0 0 0 0 0 0 dx*i dy*i dz*i]'];
+end
 
 %gravity
 g=9.81;
@@ -62,7 +68,7 @@ end
 zero12=zeros(12,4);
 row1=   [B zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12];
 row2=   [AB{2} B zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12];
-row3=   [AB{3} AB{4} B zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12];
+row3=   [AB{3} AB{2} B zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12];
 row4=   [AB{4} AB{3} AB{2} B zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12];
 row5=   [AB{5} AB{4} AB{3} AB{2} B zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12];
 row6=   [AB{6} AB{5} AB{4} AB{3} AB{2} B zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12 zero12];
@@ -91,12 +97,16 @@ Q=eye(240);
 for i=1:12
    Q(12*(Horizon-1)+i)=0; 
 end
-
+        
 H=R+PI'*Q*PI;
-f=((x)'*Gamma'*Q*PI+desti*Q*PI);
-Imax=repmat(10000,240,1);
-Imin=repmat(-10000,240,1);
-U=quadprog(H,f,[PI;-PI],[(Imax-desti)-Gamma*(x); (-Imin+desti)+Gamma*(x)]);
+
+%f에 2배를 취해야 답이 나오는 이상한 상황에 빠짐
+f=2*((x)'*Gamma'*Q*PI-desti_horizon'*Q*PI);
+xmax=repmat(100000,240,1);
+xmin=repmat(-100000,240,1);
+u_max=repmat([1,.10,.10,.10]',20,1);
+u_min=repmat(-[1,.10,.10,.10]',20,1);
+U=quadprog(H,f',[eye(80);-eye(80);PI;-PI],[u_max;-u_min;(xmax)-Gamma*(x); (-xmin)+Gamma*(x)]);
 
 xn=Gamma*x+PI*U;
 result=xn;
