@@ -107,7 +107,9 @@ xmax=repmat(100000,240,1);
 xmin=repmat(-100000,240,1);
 u_max=repmat([10,10,10,10]',20,1);
 u_min=repmat(-[10,10,10,10]',20,1);
-U=quadprog(H,f',[eye(80);-eye(80);PI;-PI],[u_max;-u_min;(xmax)-Gamma*(x); (-xmin)+Gamma*(x)]);
+% U=quadprog(H,f',[eye(80);-eye(80);PI;-PI],[u_max;-u_min;(xmax)-Gamma*(x); (-xmin)+Gamma*(x)]);
+U=quadprog(H,f');
+
 
 xn=Gamma*x+PI*U;
 result=xn;

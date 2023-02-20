@@ -1,13 +1,11 @@
-function [result] = discrete_mpc(input)
-tic
+function [result] = discrete_mpc(x,x_d,y_d,z_d)
 %DISCRETE_MPC 
 
 %using drone dynamics
 %result=[phi theta pi p q r u v w x y z];
 x=input(1:12);
 x_d=input(13);
-y_d=input(14);
-z_d=1;
+y_d=i_
 Horizon =20;
 dt=1;
 
@@ -122,6 +120,5 @@ u_min=repmat(-[1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,
 U=quadprog(H,f');
 xn=Gamma*x+PI*U;
 result=xn(10:11);
-toc
 end
 

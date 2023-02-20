@@ -5,8 +5,8 @@ x0=[0 0 0 0]';
 % conventional_mpc_test3(x0);
 % toc
 tic;
-ref=12*rand(12,1);
-y= discrete_mpc(ref,20,10,10);
+
+y= discrete_mpc([0 0 0 0 0 0 0 0 0 0 0 0]',20,10,10);
 %처음 3개의 step이 쓰레기로 나오는 상황
 % 원점을 기준으로 평행이동을 시켜주는 작업 필요?
 toc;
