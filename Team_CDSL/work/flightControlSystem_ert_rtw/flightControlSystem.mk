@@ -2,7 +2,7 @@
 ## Makefile generated for component 'flightControlSystem'. 
 ## 
 ## Makefile     : flightControlSystem.mk
-## Generated on : Tue Jan 03 17:02:47 2023
+## Generated on : Thu Mar 02 14:06:02 2023
 ## Final product: $(RELATIVE_PATH_TO_ANCHOR)/flightControlSystem.so
 ## Product type : executable
 ## 
@@ -21,7 +21,7 @@ MAKEFILE                  = flightControlSystem.mk
 MATLAB_ROOT               = C:/PROGRA~1/MATLAB/R2021a
 MATLAB_BIN                = C:/PROGRA~1/MATLAB/R2021a/bin
 MATLAB_ARCH_BIN           = $(MATLAB_BIN)/win64
-START_DIR                 = C:/Users/dssq7/MATLAB/Projects/examples/parrotMinidroneCompetition/work
+START_DIR                 = C:/Users/cdsl3/Documents/GitHub/Mini_Drone/Team_CDSL/work
 SOLVER                    = 
 SOLVER_OBJ                = 
 CLASSIC_INTERFACE         = 0
