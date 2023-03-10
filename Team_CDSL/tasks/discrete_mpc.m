@@ -79,7 +79,7 @@ for i = 1:20
 end
 
 
-Gamma=zeros(60,12);
+Gamma=zeros(12*Horizon,12);
 for i =1:Horizon
     temp=A_n{i};
     for j=1:12
@@ -128,14 +128,14 @@ modi_PI=PI(1:12*Horizon,1:16*Horizon);
 
 %cost matrix
 R=eye(16*Horizon);
-R(13,13)=30;
-R(14,14)=30;
-R(15,15)=30;
-R(16,16)=30;
+% R(13,13)=30;
+% R(14,14)=30;
+% R(15,15)=30;
+% R(16,16)=30;
 
 Q=eye(12*Horizon);
-Q(10,10)=10000;
-Q(11,11)=10000;
+% Q(10,10)=10000;
+% Q(11,11)=10000;
 
         
 for i=1:12
