@@ -29,7 +29,7 @@
 #define rtIsInf(X)                     ((int)mxIsInf(X))
 
 /* Auxiliary Header Files */
-#include "libmwbwlookup_tbb.h"
+#include "libmwmorphop_flat_tbb.h"
 
 /* Forward Declarations */
 /* Type Definitions */

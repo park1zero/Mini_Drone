@@ -8,7 +8,7 @@ LD = $(CC)
  
 MODEL     = flightControlSystem
 TARGET      = sfun
-MODULE_SRCS   = c6_flightControlSystem.c c7_flightControlSystem.c half_type.c
+MODULE_SRCS   = c6_flightControlSystem.c half_type.c
 MODEL_SRC  = flightControlSystem_sfun.c
 MODEL_REG = flightControlSystem_sfun_registry.c
 MAKEFILE    = flightControlSystem_sfun.gmk

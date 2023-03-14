@@ -1,11 +1,10 @@
 flightControlSystem_sfun.obj
 c6_flightControlSystem.obj
-c7_flightControlSystem.obj
 flightControlSystem_sfun_registry.obj
 half_type.obj
 
 
-"C:\Program Files\MATLAB\R2021a\extern\lib\win64\mingw64\libmwbwlookup_tbb.lib"
+"C:\Program Files\MATLAB\R2021a\extern\lib\win64\mingw64\libmwmorphop_flat_tbb.lib"
 "C:\Program Files\MATLAB\R2021a\extern\lib\win64\mingw64\sf_runtime.lib" 
 "C:\Program Files\MATLAB\R2021a\extern\lib\win64\mingw64\libmx.lib" 
 "C:\Program Files\MATLAB\R2021a\extern\lib\win64\mingw64\libmex.lib" 
