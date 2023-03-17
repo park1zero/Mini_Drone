@@ -1,7 +1,26 @@
 #ifndef __c6_flightControlSystem_h__
 #define __c6_flightControlSystem_h__
+#ifdef __has_include
+#if __has_include("emlrt.h")
+#include "emlrt.h"
+#else
+#error Cannot find header file emlrt.h for imported type emlrtTimespec.\
+ Supply the missing header file or turn on Simulation Target -> Generate typedefs\
+ for imported bus and enumeration types.
+#endif
+
+#else
+#include "emlrt.h"
+#endif
 
 /* Forward Declarations */
+#ifndef typedef_c6_sL6LJlPlxhdTxZzXh5NTaQC
+#define typedef_c6_sL6LJlPlxhdTxZzXh5NTaQC
+
+typedef struct c6_tag_sL6LJlPlxhdTxZzXh5NTaQC c6_sL6LJlPlxhdTxZzXh5NTaQC;
+
+#endif                                 /* typedef_c6_sL6LJlPlxhdTxZzXh5NTaQC */
+
 #ifndef typedef_c6_strel
 #define typedef_c6_strel
 
@@ -122,6 +141,23 @@ typedef struct c6_tag_kIjER3TOnaUUvjksbP9imB c6_s_kIjER3TOnaUUvjksbP9imB;
 #endif                                 /* typedef_c6_s_kIjER3TOnaUUvjksbP9imB */
 
 /* Type Definitions */
+#ifndef struct_c6_tag_sL6LJlPlxhdTxZzXh5NTaQC
+#define struct_c6_tag_sL6LJlPlxhdTxZzXh5NTaQC
+
+struct c6_tag_sL6LJlPlxhdTxZzXh5NTaQC
+{
+  int32_T intNumBits;
+};
+
+#endif                                 /* struct_c6_tag_sL6LJlPlxhdTxZzXh5NTaQC */
+
+#ifndef typedef_c6_sL6LJlPlxhdTxZzXh5NTaQC
+#define typedef_c6_sL6LJlPlxhdTxZzXh5NTaQC
+
+typedef struct c6_tag_sL6LJlPlxhdTxZzXh5NTaQC c6_sL6LJlPlxhdTxZzXh5NTaQC;
+
+#endif                                 /* typedef_c6_sL6LJlPlxhdTxZzXh5NTaQC */
+
 #ifndef struct_c6_tag_JtG38bPfxYLdZK8iOc21SH
 #define struct_c6_tag_JtG38bPfxYLdZK8iOc21SH
 
@@ -447,7 +483,6 @@ typedef struct {
   real_T c6_k1;
   real_T c6_k2;
   real_T c6_k3;
-  real_T c6_temp;
   real_T c6_theta;
   uint8_T c6_JITTransitionAnimation[7];
   int32_T c6_IsDebuggerActive;
@@ -455,19 +490,20 @@ typedef struct {
   int32_T c6_SequenceViewerOptimization;
   int32_T c6_IsHeatMapPresent;
   void *c6_RuntimeVar;
-  boolean_T c6_dataWrittenToVector[20];
+  emlrtTimespec c6_savedTime;
+  boolean_T c6_savedTime_not_empty;
+  boolean_T c6_dataWrittenToVector[15];
   uint8_T c6_doSetSimStateSideEffects;
   const mxArray *c6_setSimStateSideEffectsInfo;
   uint32_T c6_mlFcnLineNumber;
   real_T c6_cutting_image[19200];
   real_T c6_MAP[19200];
   real_T c6_b_MAP[19200];
-  real_T c6_L[19200];
+  real_T c6_L_image[19200];
   real_T c6_Apad[20336];
   real_T c6_B[20336];
   real_T c6_Apadpre[19764];
   real_T c6_b_cutting_image[19200];
-  real_T c6_P[9601];
   real_T c6_dv[19200];
   CovrtStateflowInstance *c6_covrtInstance;
   void *c6_fEmlrtCtx;
@@ -478,9 +514,7 @@ typedef struct {
   real_T (*c6_c_cutting_image)[19200];
   real_T (*c6_prev_points)[6];
   real_T *c6_ladingFlag;
-  real_T (*c6_wieghtMeanPoint)[2];
-  real_T *c6_arc;
-  real_T *c6_seg;
+  real_T (*c6_weightMeanPoint)[2];
 } SFc6_flightControlSystemInstanceStruct;
 
 #endif                                 /* typedef_SFc6_flightControlSystemInstanceStruct */

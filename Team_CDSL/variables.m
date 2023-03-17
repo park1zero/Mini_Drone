@@ -14,6 +14,12 @@ S = 80;
 %% Landing mark detector
 DISK_KERNEL = 11;
 
-%% k-means algorithm
+%% sector_form (tunning)
+num_threshold = 300; %원본 dots일 경우 500~600, preprocessingDots사용할 경우10~20개.
+degree_range1 = 30;
 
-
+%% track_generator(tunning)
+degree_range2 = 30;
+rotation_degree = 5;
+prev_degree_ragne = 40;
+radius = 50;
