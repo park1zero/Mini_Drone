@@ -28,5 +28,5 @@ radius = 40;
 degree_range3 = 30;
 rotation_degree2 = 5;
 prev_degree_range2 = 80;
-radius2 = 40;
+radius2 = 33;
 
