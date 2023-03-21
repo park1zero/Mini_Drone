@@ -15,11 +15,18 @@ S = 80;
 DISK_KERNEL = 11;
 
 %% sector_form (tunning)
-num_threshold = 300; %원본 dots일 경우 500~600, preprocessingDots사용할 경우10~20개.
+num_threshold = 10; %원본 dots일 경우 500~600, preprocessingDots사용할 경우10~20개.
 degree_range1 = 30;
 
 %% track_generator(tunning)
 degree_range2 = 30;
 rotation_degree = 5;
-prev_degree_ragne = 40;
-radius = 50;
+prev_degree_range = 30;
+radius = 40;
+
+%% second_track_generator (tunning)
+degree_range3 = 30;
+rotation_degree2 = 5;
+prev_degree_range2 = 80;
+radius2 = 40;
+

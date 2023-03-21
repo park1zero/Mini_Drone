@@ -1064,11 +1064,10 @@ Transform {
     description "View from the Top"
     position 2 7 -2
     orientation 1 0 0 -1.5708
-    fieldOfView 0.7854
   }
 }
 DEF LandingSpot Transform {
-  translation 3.377059 -0.02 3.443503
+  translation 3.104331 -0.02 0.660793
   rotation 0 0 0 0
   children Shape {
     appearance Appearance {
@@ -1100,18 +1099,18 @@ DEF Lines Transform {
       convex FALSE
       coord Coordinate {
         point [
-          0.6104493 -0.02 -0.7743137,
-          0.7699037 -0.02 -1.959451,
-          0.8690107 -0.02 -1.946116,
-          0.7095563 -0.02 -0.7609794,
-          0.7421975 -0.02 -1.899143,
-          1.795003 -0.02 -3.081342,
-          1.869682 -0.02 -3.014837,
-          0.8168769 -0.02 -1.832638,
-          1.739415 -0.02 -3.048682,
-          3.188612 -0.02 -3.371505,
-          3.210355 -0.02 -3.273898,
-          1.761158 -0.02 -2.951075 
+          0.8069307 -0.02 -1.252647,
+          0.8282769 -0.02 -1.943989,
+          0.9282293 -0.02 -1.940903,
+          0.9068831 -0.02 -1.249561,
+          0.8079686 -0.02 -1.875898,
+          1.188908 -0.02 -2.498851,
+          1.274221 -0.02 -2.446682,
+          0.8932818 -0.02 -1.823729,
+          1.198008 -0.02 -2.359795,
+          0.7790052 -0.02 -2.878443,
+          0.8567924 -0.02 -2.941285,
+          1.275795 -0.02 -2.422638 
         ]
       }
     }
@@ -1423,7 +1422,7 @@ DEF Static_Objects Transform {
   ]
 }
 DEF QuadBody Transform {
-  translation 0.8172 0.001765 0.66667
+  translation 1.30108 0.001765 0.85845
   scaleOrientation 0 1 0 0
   children [
     DEF UAV_Collision Transform {
@@ -1491,12 +1490,12 @@ DEF QuadBody Transform {
 }
 DEF IsoNoRotation Viewpoint {
   description "Isometric - No Rotation"
-  position 1.7181 0.670765 1.65667
+  position 2.20198 0.670765 1.84845
   orientation -0.46727 0.858698 0.210466 0.847752
 }
 DEF OnQuadNoRotation Viewpoint {
   description "Chase - No Rotation"
-  position -2.1828 1.001765 0.66667
+  position -1.69892 1.001765 0.85845
   orientation 0 -1 -0 1.57
 }
 DEF BlueMarker Transform {
