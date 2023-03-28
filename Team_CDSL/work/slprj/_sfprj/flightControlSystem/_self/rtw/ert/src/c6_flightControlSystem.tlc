@@ -7,25 +7,11 @@
 %endfunction
 %function ChartDataMap(block, system) void
   %createrecord ChartDataElements {\
-    NumChartData   5 \
+    NumChartData   4 \
     ChartDataDefaults {\
       RecordType   "ChartData"\
       Dimensions   []\
       IsTestPoint  0\
-    }\
-    ChartData {\
-      Name         "is_active_c6_flightControlSystem"\
-      Description  "StateIsActive"\
-      SFName       ""\
-      Path         ""\
-      SrcLocation  ""\
-    }\
-    ChartData {\
-      Name         "is_c6_flightControlSystem"\
-      Description  "StateActiveChild"\
-      SFName       ""\
-      Path         ""\
-      SrcLocation  ""\
     }\
     ChartData {\
       Name         "isLine"\
@@ -42,8 +28,15 @@
       SrcLocation  ""\
     }\
     ChartData {\
-      Name         "temporalCounter_i1"\
-      Description  "TemporalCounter"\
+      Name         "is_active_c6_flightControlSystem"\
+      Description  "StateIsActive"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  ""\
+    }\
+    ChartData {\
+      Name         "is_c6_flightControlSystem"\
+      Description  "StateActiveChild"\
       SFName       ""\
       Path         ""\
       SrcLocation  ""\
