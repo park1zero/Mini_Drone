@@ -32,4 +32,4 @@ prev_degree_range2 = 80;
 radius2 = 33;
 
 %% ROI
-ROI_Size = 80;
+ROI_Size = 60;
