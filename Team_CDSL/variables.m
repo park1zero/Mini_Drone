@@ -40,7 +40,7 @@ over_step=2;
 
 
 %mpc에서 몇번 째 step을 사용할 지. 3까지는 괜찮은데 그 이상 안 올리는 걸 추천
-step=2; 
+step=1; 
 
 %mpc 내부 parameter
 Horizon=10;
