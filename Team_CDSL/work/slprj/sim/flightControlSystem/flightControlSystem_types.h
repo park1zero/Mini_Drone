@@ -1,9 +1,6 @@
 #ifndef RTW_HEADER_flightControlSystem_types_h_
 #define RTW_HEADER_flightControlSystem_types_h_
 #include "rtwtypes.h"
-#include "builtin_typeid_types.h"
-#include "multiword_types.h"
-#include "zero_crossing_types.h"
 #ifndef DEFINED_TYPEDEF_FOR_CommandBus_
 #define DEFINED_TYPEDEF_FOR_CommandBus_
 typedef struct { boolean_T controlModePosVSOrient ; uint8_T sl_padding0 [ 3 ]
@@ -193,22 +190,127 @@ struct_IZWOW0zYvpphl7qLgSfN7E PositionOnEarth ; struct_q6UUpnZ4gTjFvULFx6Rxa
 Airframe ; struct_OMRgDnJcZuQneKEj9vdTyD Rotor ;
 struct_p3FXZIgqtjF2uqDpmYjb6C Motor ; } struct_OSJpyIZcrpXqReVWwh9iuG ;
 #endif
-#ifndef struct_tag_BlgwLpgj2bjudmbmVKWwDE
-#define struct_tag_BlgwLpgj2bjudmbmVKWwDE
-struct tag_BlgwLpgj2bjudmbmVKWwDE { uint32_T f1 [ 8 ] ; } ;
+#include "coder_posix_time.h"
+#ifndef struct_tag_sdAmwXbnJnEmimT0NaJRtAD
+#define struct_tag_sdAmwXbnJnEmimT0NaJRtAD
+struct tag_sdAmwXbnJnEmimT0NaJRtAD { real_T tv_sec ; real_T tv_nsec ; } ;
 #endif
-#ifndef typedef_hcqytoelbe
-#define typedef_hcqytoelbe
-typedef struct tag_BlgwLpgj2bjudmbmVKWwDE hcqytoelbe ;
+#ifndef typedef_kyukv4umxq
+#define typedef_kyukv4umxq
+typedef struct tag_sdAmwXbnJnEmimT0NaJRtAD kyukv4umxq ;
 #endif
-#ifndef struct_tag_ka0xmCFxNA495MDHzPTiFE
-#define struct_tag_ka0xmCFxNA495MDHzPTiFE
-struct tag_ka0xmCFxNA495MDHzPTiFE { int32_T isInitialized ; hcqytoelbe
-inputVarSize ; } ;
+#ifndef struct_tag_ssj0x5nSNMScC516AyLk1GF
+#define struct_tag_ssj0x5nSNMScC516AyLk1GF
+struct tag_ssj0x5nSNMScC516AyLk1GF { real_T xstar [ 161 ] ; real_T fstar ;
+real_T firstorderopt ; real_T lambda [ 561 ] ; int32_T state ; real_T
+maxConstr ; int32_T iterations ; real_T searchDir [ 161 ] ; } ;
+#endif
+#ifndef typedef_ltrtju4vjy
+#define typedef_ltrtju4vjy
+typedef struct tag_ssj0x5nSNMScC516AyLk1GF ltrtju4vjy ;
+#endif
+#ifndef struct_tag_s7OVnFoOrazC7Q6XkhL42AD
+#define struct_tag_s7OVnFoOrazC7Q6XkhL42AD
+struct tag_s7OVnFoOrazC7Q6XkhL42AD { real_T grad [ 161 ] ; real_T Hx [ 160 ]
+; boolean_T hasLinear ; int32_T nvar ; int32_T maxVar ; real_T beta ; real_T
+rho ; int32_T objtype ; int32_T prev_objtype ; int32_T prev_nvar ; boolean_T
+prev_hasLinear ; real_T gammaScalar ; } ;
+#endif
+#ifndef typedef_ofcwsyrt4s
+#define typedef_ofcwsyrt4s
+typedef struct tag_s7OVnFoOrazC7Q6XkhL42AD ofcwsyrt4s ;
+#endif
+#ifndef struct_tag_suS0eCvEHjNUF9MHUQzqI0F
+#define struct_tag_suS0eCvEHjNUF9MHUQzqI0F
+struct tag_suS0eCvEHjNUF9MHUQzqI0F { real_T FMat [ 25921 ] ; int32_T ldm ;
+int32_T ndims ; int32_T info ; real_T scaleFactor ; boolean_T ConvexCheck ;
+real_T regTol_ ; real_T workspace_ [ 7728 ] ; real_T workspace2_ [ 7728 ] ; }
+;
+#endif
+#ifndef typedef_jkcbyyifjr
+#define typedef_jkcbyyifjr
+typedef struct tag_suS0eCvEHjNUF9MHUQzqI0F jkcbyyifjr ;
+#endif
+#ifndef struct_tag_sL9bDKomAYkxZSVrG9w6En
+#define struct_tag_sL9bDKomAYkxZSVrG9w6En
+struct tag_sL9bDKomAYkxZSVrG9w6En { int32_T MaxIterations ; real_T
+ConstrRelTolFactor ; real_T ProbRelTolFactor ; boolean_T RemainFeasible ; } ;
+#endif
+#ifndef typedef_bvhqttcz4x
+#define typedef_bvhqttcz4x
+typedef struct tag_sL9bDKomAYkxZSVrG9w6En bvhqttcz4x ;
+#endif
+#ifndef struct_tag_s7QgFsMHqX3g8YfETlVUwTE
+#define struct_tag_s7QgFsMHqX3g8YfETlVUwTE
+struct tag_s7QgFsMHqX3g8YfETlVUwTE { int32_T ldq ; real_T QR [ 90321 ] ;
+real_T Q [ 25921 ] ; int32_T jpvt [ 561 ] ; int32_T mrows ; int32_T ncols ;
+real_T tau [ 161 ] ; int32_T minRowCol ; boolean_T usedPivoting ; } ;
+#endif
+#ifndef typedef_nyazh5yq1j
+#define typedef_nyazh5yq1j
+typedef struct tag_s7QgFsMHqX3g8YfETlVUwTE nyazh5yq1j ;
+#endif
+#ifndef struct_tag_sRlEqzfjZbdtNfxigrGPQBE
+#define struct_tag_sRlEqzfjZbdtNfxigrGPQBE
+struct tag_sRlEqzfjZbdtNfxigrGPQBE { real_T workspace_double [ 90321 ] ;
+int32_T workspace_int [ 561 ] ; int32_T workspace_sort [ 561 ] ; } ;
+#endif
+#ifndef typedef_ov1jwgmha0
+#define typedef_ov1jwgmha0
+typedef struct tag_sRlEqzfjZbdtNfxigrGPQBE ov1jwgmha0 ;
+#endif
+#ifndef struct_tag_soijeAYk0B7wqbw06ZeglJD
+#define struct_tag_soijeAYk0B7wqbw06ZeglJD
+struct tag_soijeAYk0B7wqbw06ZeglJD { int32_T mConstr ; int32_T mConstrOrig ;
+int32_T mConstrMax ; int32_T nVar ; int32_T nVarOrig ; int32_T nVarMax ;
+int32_T ldA ; real_T Aineq [ 90160 ] ; real_T bineq [ 560 ] ; real_T lb [ 161
+] ; real_T ub [ 161 ] ; int32_T indexLB [ 161 ] ; int32_T indexUB [ 161 ] ;
+int32_T indexFixed [ 161 ] ; int32_T mEqRemoved ; real_T ATwset [ 90321 ] ;
+real_T bwset [ 561 ] ; int32_T nActiveConstr ; real_T maxConstrWorkspace [
+561 ] ; int32_T sizes [ 5 ] ; int32_T sizesNormal [ 5 ] ; int32_T
+sizesPhaseOne [ 5 ] ; int32_T sizesRegularized [ 5 ] ; int32_T
+sizesRegPhaseOne [ 5 ] ; int32_T isActiveIdx [ 6 ] ; int32_T
+isActiveIdxNormal [ 6 ] ; int32_T isActiveIdxPhaseOne [ 6 ] ; int32_T
+isActiveIdxRegularized [ 6 ] ; int32_T isActiveIdxRegPhaseOne [ 6 ] ;
+boolean_T isActiveConstr [ 561 ] ; int32_T Wid [ 561 ] ; int32_T Wlocalidx [
+561 ] ; int32_T nWConstr [ 5 ] ; int32_T probType ; real_T SLACK0 ; } ;
+#endif
+#ifndef typedef_gcv4dcppet
+#define typedef_gcv4dcppet
+typedef struct tag_soijeAYk0B7wqbw06ZeglJD gcv4dcppet ;
+#endif
+#ifndef struct_tag_sSOeZ9WO10chPn9Si6PKiCB
+#define struct_tag_sSOeZ9WO10chPn9Si6PKiCB
+struct tag_sSOeZ9WO10chPn9Si6PKiCB { real_T InitDamping ; char_T
+FiniteDifferenceType [ 7 ] ; boolean_T SpecifyObjectiveGradient ; boolean_T
+ScaleProblem ; boolean_T SpecifyConstraintGradient ; boolean_T
+NonFiniteSupport ; boolean_T IterDisplaySQP ; real_T FiniteDifferenceStepSize
+; real_T MaxFunctionEvaluations ; boolean_T IterDisplayQP ; real_T
+PricingTolerance ; char_T Algorithm [ 10 ] ; real_T ObjectiveLimit ; real_T
+ConstraintTolerance ; real_T OptimalityTolerance ; real_T StepTolerance ;
+real_T MaxIterations ; real_T FunctionTolerance ; char_T SolverName [ 8 ] ;
+boolean_T CheckGradients ; char_T Diagnostics [ 3 ] ; real_T DiffMaxChange ;
+real_T DiffMinChange ; char_T Display [ 5 ] ; char_T FunValCheck [ 3 ] ;
+boolean_T UseParallel ; char_T LinearSolver [ 4 ] ; char_T
+SubproblemAlgorithm [ 2 ] ; } ;
+#endif
+#ifndef typedef_edgtad0wpy
+#define typedef_edgtad0wpy
+typedef struct tag_sSOeZ9WO10chPn9Si6PKiCB edgtad0wpy ;
+#endif
+#ifndef struct_tag_XlO2h99uDeEYSa2APM6LVB
+#define struct_tag_XlO2h99uDeEYSa2APM6LVB
+struct tag_XlO2h99uDeEYSa2APM6LVB { int32_T isInitialized ; } ;
 #endif
 #ifndef typedef_bjqsgn0csy
 #define typedef_bjqsgn0csy
-typedef struct tag_ka0xmCFxNA495MDHzPTiFE bjqsgn0csy ;
+typedef struct tag_XlO2h99uDeEYSa2APM6LVB bjqsgn0csy ;
+#endif
+#ifndef SS_UINT64
+#define SS_UINT64 49
+#endif
+#ifndef SS_INT64
+#define SS_INT64 50
 #endif
 typedef struct bpvdgm2xq5_ bpvdgm2xq5 ; typedef struct je33m1dqwd_ je33m1dqwd
 ; typedef struct fpqg1jdlo0_ fpqg1jdlo0 ; typedef struct nu4qaxumex_

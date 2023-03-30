@@ -1,6 +1,8 @@
-#include "rt_nonfinite.h"
 #include "rtGetNaN.h"
 #include "rtGetInf.h"
+#include <stddef.h>
+#include "rtwtypes.h"
+#include "rt_nonfinite.h"
 #define NumBitsPerChar                 8U
 
 real_T rtInf;

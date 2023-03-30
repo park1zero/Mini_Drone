@@ -15,10 +15,7 @@ typedef uint8_T ZCSigState;
 #define POS_ZCSIG                      0x01U
 #define ZERO_ZCSIG                     0x00U
 
-typedef enum {
-  FALLING_ZCEVENT = -1,
-  NO_ZCEVENT = 0,
-  RISING_ZCEVENT = 1
-} ZCEventType;
+typedef enum { FALLING_ZCEVENT = -1, NO_ZCEVENT = 0, RISING_ZCEVENT = 1 }
+  ZCEventType;
 
 #endif

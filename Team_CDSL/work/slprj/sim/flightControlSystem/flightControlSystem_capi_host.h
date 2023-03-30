@@ -1,5 +1,5 @@
-#ifndef RTW_HEADER_flightControlSystem_cap_host_h_
-#define RTW_HEADER_flightControlSystem_cap_host_h_
+#ifndef RTW_HEADER_flightControlSystem_cap_host_h__
+#define RTW_HEADER_flightControlSystem_cap_host_h__
 #ifdef HOST_CAPI_BUILD
 #include "rtw_capi.h"
 #include "rtw_modelmap_simtarget.h"

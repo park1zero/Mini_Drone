@@ -9,13 +9,17 @@
 #include <math.h>
 #include "simstruc.h"
 #include "fixedpoint.h"
+#include "mwstringutil.h"
 #define rt_logging_h
 #include "flightControlSystem_types.h"
 #include "flightControlSystem.h"
 #include "flightControlSystem_private.h"
 struct_8SSZ93PxvPkADZcA4gG8MD rtP_Sensors ; real_T rtP_COG_X ; real_T
-rtP_COG_Y ; real_T rtP_degree_range1 ; real_T rtP_degree_range2 ; real_T
-rtP_num_threshold ; real_T rtP_rotation_degree ; const char *
+rtP_COG_Y ; real_T rtP_ROI_Size ; real_T rtP_degree_range1 ; real_T
+rtP_degree_range2 ; real_T rtP_degree_range3 ; real_T rtP_num_threshold ;
+real_T rtP_prev_degree_range ; real_T rtP_prev_degree_range2 ; real_T
+rtP_radius ; real_T rtP_radius2 ; real_T rtP_rotation_degree ; real_T
+rtP_rotation_degree2 ; real_T rtP_straight_threshold ; const char *
 rt_GetMatSignalLoggingFileName ( void ) { return NULL ; } const char *
 rt_GetMatSigLogSelectorFileName ( void ) { return NULL ; } void *
 rt_GetOSigstreamManager ( void ) { return NULL ; } void * rt_slioCatalogue (
@@ -37,12 +41,13 @@ rt_CreateFullPathToTop ( const char * toppath , const char * subpath ) { char
 return false ; } void rt_RAccelReplaceFromFilename ( const char * blockpath ,
 char * fileName ) { ( void ) blockpath ; ( void ) fileName ; } void
 rt_RAccelReplaceToFilename ( const char * blockpath , char * fileName ) { (
-void ) blockpath ; ( void ) fileName ; } void
+void ) blockpath ; ( void ) fileName ; } void * slsa_malloc ( size_t s ) {
+return malloc ( s ) ; } void slsa_free ( void * ptr ) { free ( ptr ) ; } void
 slsaCacheDWorkPointerForSimTargetOP ( void * ss , void * * ptr ) { ( void )
 ss ; ( void ) ptr ; } void slsaCacheDWorkDataForSimTargetOP ( void * ss ,
 void * ptr , unsigned int sizeInBytes ) { ( void ) ss ; ( void ) ptr ; ( void
 ) sizeInBytes ; } void slsaSaveRawMemoryForSimTargetOP ( void * ss , const
-char * key , void * ptr , unsigned int sizeInBytes , void * ( *
+char * key , void * * ptr , unsigned int sizeInBytes , void * ( *
 customOPSaveFcn ) ( void * dworkPtr , unsigned int * sizeInBytes ) , void ( *
 customOPRestoreFcn ) ( void * dworkPtr , const void * data , unsigned int
 sizeInBytes ) ) { ( void ) ss ; ( void ) key ; ( void ) ptr ; ( void )
@@ -54,48 +59,76 @@ struct_8SSZ93PxvPkADZcA4gG8MD * GlobalPrm_0 = ( struct_8SSZ93PxvPkADZcA4gG8MD
 * ) NULL ; real_T * GlobalPrm_1 = ( real_T * ) NULL ; real_T * GlobalPrm_2 =
 ( real_T * ) NULL ; real_T * GlobalPrm_3 = ( real_T * ) NULL ; real_T *
 GlobalPrm_4 = ( real_T * ) NULL ; real_T * GlobalPrm_5 = ( real_T * ) NULL ;
-real_T * GlobalPrm_6 = ( real_T * ) NULL ; if ( !
-ssGetModelRefGlobalParamData ( S , 0 , ( void * * ) ( & GlobalPrm_0 ) ) )
-return ; if ( GlobalPrm_0 != NULL ) { ( void ) memcpy ( & ( rtP_Sensors ) ,
-GlobalPrm_0 , sizeof ( struct_8SSZ93PxvPkADZcA4gG8MD ) ) ; } if ( !
-ssGetModelRefGlobalParamData ( S , 1 , ( void * * ) ( & GlobalPrm_1 ) ) )
-return ; if ( GlobalPrm_1 != NULL ) { ( void ) memcpy ( & ( rtP_COG_X ) ,
-GlobalPrm_1 , sizeof ( real_T ) ) ; } if ( ! ssGetModelRefGlobalParamData ( S
-, 2 , ( void * * ) ( & GlobalPrm_2 ) ) ) return ; if ( GlobalPrm_2 != NULL )
-{ ( void ) memcpy ( & ( rtP_COG_Y ) , GlobalPrm_2 , sizeof ( real_T ) ) ; }
-if ( ! ssGetModelRefGlobalParamData ( S , 3 , ( void * * ) ( & GlobalPrm_3 )
-) ) return ; if ( GlobalPrm_3 != NULL ) { ( void ) memcpy ( & (
-rtP_degree_range1 ) , GlobalPrm_3 , sizeof ( real_T ) ) ; } if ( !
-ssGetModelRefGlobalParamData ( S , 4 , ( void * * ) ( & GlobalPrm_4 ) ) )
-return ; if ( GlobalPrm_4 != NULL ) { ( void ) memcpy ( & ( rtP_degree_range2
-) , GlobalPrm_4 , sizeof ( real_T ) ) ; } if ( ! ssGetModelRefGlobalParamData
-( S , 5 , ( void * * ) ( & GlobalPrm_5 ) ) ) return ; if ( GlobalPrm_5 !=
-NULL ) { ( void ) memcpy ( & ( rtP_num_threshold ) , GlobalPrm_5 , sizeof (
-real_T ) ) ; } if ( ! ssGetModelRefGlobalParamData ( S , 6 , ( void * * ) ( &
-GlobalPrm_6 ) ) ) return ; if ( GlobalPrm_6 != NULL ) { ( void ) memcpy ( & (
-rtP_rotation_degree ) , GlobalPrm_6 , sizeof ( real_T ) ) ; } }
+real_T * GlobalPrm_6 = ( real_T * ) NULL ; real_T * GlobalPrm_7 = ( real_T *
+) NULL ; real_T * GlobalPrm_8 = ( real_T * ) NULL ; real_T * GlobalPrm_9 = (
+real_T * ) NULL ; real_T * GlobalPrm_10 = ( real_T * ) NULL ; real_T *
+GlobalPrm_11 = ( real_T * ) NULL ; real_T * GlobalPrm_12 = ( real_T * ) NULL
+; real_T * GlobalPrm_13 = ( real_T * ) NULL ; real_T * GlobalPrm_14 = (
+real_T * ) NULL ; if ( ! ssGetModelRefGlobalParamData ( S , 0 , ( void * * )
+( & GlobalPrm_0 ) ) ) return ; if ( GlobalPrm_0 != NULL ) { ( void ) memcpy (
+& ( rtP_Sensors ) , GlobalPrm_0 , sizeof ( struct_8SSZ93PxvPkADZcA4gG8MD ) )
+; } if ( ! ssGetModelRefGlobalParamData ( S , 1 , ( void * * ) ( &
+GlobalPrm_1 ) ) ) return ; if ( GlobalPrm_1 != NULL ) { ( void ) memcpy ( & (
+rtP_COG_X ) , GlobalPrm_1 , sizeof ( real_T ) ) ; } if ( !
+ssGetModelRefGlobalParamData ( S , 2 , ( void * * ) ( & GlobalPrm_2 ) ) )
+return ; if ( GlobalPrm_2 != NULL ) { ( void ) memcpy ( & ( rtP_COG_Y ) ,
+GlobalPrm_2 , sizeof ( real_T ) ) ; } if ( ! ssGetModelRefGlobalParamData ( S
+, 3 , ( void * * ) ( & GlobalPrm_3 ) ) ) return ; if ( GlobalPrm_3 != NULL )
+{ ( void ) memcpy ( & ( rtP_ROI_Size ) , GlobalPrm_3 , sizeof ( real_T ) ) ;
+} if ( ! ssGetModelRefGlobalParamData ( S , 4 , ( void * * ) ( & GlobalPrm_4
+) ) ) return ; if ( GlobalPrm_4 != NULL ) { ( void ) memcpy ( & (
+rtP_degree_range1 ) , GlobalPrm_4 , sizeof ( real_T ) ) ; } if ( !
+ssGetModelRefGlobalParamData ( S , 5 , ( void * * ) ( & GlobalPrm_5 ) ) )
+return ; if ( GlobalPrm_5 != NULL ) { ( void ) memcpy ( & ( rtP_degree_range2
+) , GlobalPrm_5 , sizeof ( real_T ) ) ; } if ( ! ssGetModelRefGlobalParamData
+( S , 6 , ( void * * ) ( & GlobalPrm_6 ) ) ) return ; if ( GlobalPrm_6 !=
+NULL ) { ( void ) memcpy ( & ( rtP_degree_range3 ) , GlobalPrm_6 , sizeof (
+real_T ) ) ; } if ( ! ssGetModelRefGlobalParamData ( S , 7 , ( void * * ) ( &
+GlobalPrm_7 ) ) ) return ; if ( GlobalPrm_7 != NULL ) { ( void ) memcpy ( & (
+rtP_num_threshold ) , GlobalPrm_7 , sizeof ( real_T ) ) ; } if ( !
+ssGetModelRefGlobalParamData ( S , 8 , ( void * * ) ( & GlobalPrm_8 ) ) )
+return ; if ( GlobalPrm_8 != NULL ) { ( void ) memcpy ( & (
+rtP_prev_degree_range ) , GlobalPrm_8 , sizeof ( real_T ) ) ; } if ( !
+ssGetModelRefGlobalParamData ( S , 9 , ( void * * ) ( & GlobalPrm_9 ) ) )
+return ; if ( GlobalPrm_9 != NULL ) { ( void ) memcpy ( & (
+rtP_prev_degree_range2 ) , GlobalPrm_9 , sizeof ( real_T ) ) ; } if ( !
+ssGetModelRefGlobalParamData ( S , 10 , ( void * * ) ( & GlobalPrm_10 ) ) )
+return ; if ( GlobalPrm_10 != NULL ) { ( void ) memcpy ( & ( rtP_radius ) ,
+GlobalPrm_10 , sizeof ( real_T ) ) ; } if ( ! ssGetModelRefGlobalParamData (
+S , 11 , ( void * * ) ( & GlobalPrm_11 ) ) ) return ; if ( GlobalPrm_11 !=
+NULL ) { ( void ) memcpy ( & ( rtP_radius2 ) , GlobalPrm_11 , sizeof ( real_T
+) ) ; } if ( ! ssGetModelRefGlobalParamData ( S , 12 , ( void * * ) ( &
+GlobalPrm_12 ) ) ) return ; if ( GlobalPrm_12 != NULL ) { ( void ) memcpy ( &
+( rtP_rotation_degree ) , GlobalPrm_12 , sizeof ( real_T ) ) ; } if ( !
+ssGetModelRefGlobalParamData ( S , 13 , ( void * * ) ( & GlobalPrm_13 ) ) )
+return ; if ( GlobalPrm_13 != NULL ) { ( void ) memcpy ( & (
+rtP_rotation_degree2 ) , GlobalPrm_13 , sizeof ( real_T ) ) ; } if ( !
+ssGetModelRefGlobalParamData ( S , 14 , ( void * * ) ( & GlobalPrm_14 ) ) )
+return ; if ( GlobalPrm_14 != NULL ) { ( void ) memcpy ( & (
+rtP_straight_threshold ) , GlobalPrm_14 , sizeof ( real_T ) ) ; } }
 #endif
-static void mdlInitializeConditions ( SimStruct * S ) { uint8_T * o_o_B_28_2
-= ( uint8_T * ) ssGetOutputPortSignal ( S , 1 ) ; ha1ipjbq54 ( o_o_B_28_2 ) ;
+static void mdlInitializeConditions ( SimStruct * S ) { uint8_T * o_o_B_37_2
+= ( uint8_T * ) ssGetOutputPortSignal ( S , 1 ) ; ha1ipjbq54 ( o_o_B_37_2 ) ;
 } static void mdlReset ( SimStruct * S ) { gwlyno50ln ( ) ; } static void
-mdlPeriodicOutputUpdate ( SimStruct * S , int_T tid ) { SensorsBus const *
-i_bdony3ptwc = ( SensorsBus * ) ssGetInputPortSignal ( S , 1 ) ; real32_T *
-o_B_28_1 = ( real32_T * ) ssGetOutputPortSignal ( S , 0 ) ; uint8_T *
-o_o_B_28_2 = ( uint8_T * ) ssGetOutputPortSignal ( S , 1 ) ; if ( tid == 0 )
-{ flightControlSystemTID0 ( i_bdony3ptwc , o_B_28_1 , o_o_B_28_2 ) ;
-pyvd4pdf3iTID0 ( ) ; } if ( tid == 1 ) { flightControlSystemTID1 ( ) ;
-pyvd4pdf3iTID1 ( ) ; } } static void mdlInitializeSizes ( SimStruct * S ) {
-if ( ( S -> mdlInfo -> genericFcn != ( NULL ) ) && ( ! ( S -> mdlInfo ->
-genericFcn ) ( S , GEN_FCN_CHK_MODELREF_SFUN_HAS_MODEL_BLOCK , - 1 , ( NULL )
-) ) ) { return ; } ssSetNumSFcnParams ( S , 0 ) ;
-ssFxpSetU32BitRegionCompliant ( S , 1 ) ; rt_InitInfAndNaN ( sizeof ( real_T
-) ) ; if ( S -> mdlInfo -> genericFcn != ( NULL ) ) { _GenericFcn fcn = S ->
-mdlInfo -> genericFcn ; } ssSetRTWGeneratedSFcn ( S , 2 ) ;
-ssSetNumContStates ( S , 0 ) ; ssSetNumDiscStates ( S , 0 ) ;
-ssSetSymbolicDimsSupport ( S , true ) ; slmrInitializeIOPortDataVectors ( S ,
-3 , 2 ) ; if ( ! ssSetNumInputPorts ( S , 3 ) ) return ; if ( !
-ssSetInputPortVectorDimension ( S , 0 , 1 ) ) return ;
-ssSetInputPortDimensionsMode ( S , 0 , FIXED_DIMS_MODE ) ;
+mdlPeriodicOutputUpdate ( SimStruct * S , int_T tid ) { CommandBus const *
+i_esr4u5laa5 = ( CommandBus * ) ssGetInputPortSignal ( S , 0 ) ; SensorsBus
+const * i_bdony3ptwc = ( SensorsBus * ) ssGetInputPortSignal ( S , 1 ) ;
+real32_T * o_B_37_1 = ( real32_T * ) ssGetOutputPortSignal ( S , 0 ) ;
+uint8_T * o_o_B_37_2 = ( uint8_T * ) ssGetOutputPortSignal ( S , 1 ) ; if (
+tid == 0 ) { flightControlSystemTID0 ( i_esr4u5laa5 , i_bdony3ptwc , o_B_37_1
+, o_o_B_37_2 ) ; pyvd4pdf3iTID0 ( ) ; } if ( tid == 1 ) {
+flightControlSystemTID1 ( ) ; pyvd4pdf3iTID1 ( ) ; } } static void
+mdlInitializeSizes ( SimStruct * S ) { if ( ( S -> mdlInfo -> genericFcn != (
+NULL ) ) && ( ! ( S -> mdlInfo -> genericFcn ) ( S ,
+GEN_FCN_CHK_MODELREF_SFUN_HAS_MODEL_BLOCK , - 1 , ( NULL ) ) ) ) { return ; }
+ssSetNumSFcnParams ( S , 0 ) ; ssFxpSetU32BitRegionCompliant ( S , 1 ) ;
+rt_InitInfAndNaN ( sizeof ( real_T ) ) ; if ( S -> mdlInfo -> genericFcn != (
+NULL ) ) { _GenericFcn fcn = S -> mdlInfo -> genericFcn ; }
+ssSetRTWGeneratedSFcn ( S , 2 ) ; ssSetNumContStates ( S , 0 ) ;
+ssSetNumDiscStates ( S , 0 ) ; ssSetSymbolicDimsSupport ( S , true ) ;
+slmrInitializeIOPortDataVectors ( S , 3 , 2 ) ; if ( ! ssSetNumInputPorts ( S
+, 3 ) ) return ; if ( ! ssSetInputPortVectorDimension ( S , 0 , 1 ) ) return
+; ssSetInputPortDimensionsMode ( S , 0 , FIXED_DIMS_MODE ) ;
 ssSetInputPortFrameData ( S , 0 , FRAME_NO ) ; if ( ssGetSimMode ( S ) !=
 SS_SIMMODE_SIZES_CALL_ONLY ) {
 #if defined (MATLAB_MEX_FILE)
@@ -187,8 +220,12 @@ S , 3 ) ; ssSetParameterTuningCompliance ( S , true ) ; ssSetNumRWork ( S , 0
 ssSetZcSignalWidth ( S , zcsIdx , 1 ) ; ssSetZcSignalName ( S , zcsIdx ,
 "Trig" ) ; ssSetZcSignalType ( S , zcsIdx , SL_ZCS_TYPE_DISC ) ;
 ssSetZcSignalZcEventType ( S , zcsIdx , SL_ZCS_EVENT_ALL ) ;
-ssSetZcSignalNeedsEventNotification ( S , zcsIdx , 0 ) ; }
-ssSetOutputPortIsNonContinuous ( S , 0 , 0 ) ;
+ssSetZcSignalNeedsEventNotification ( S , zcsIdx , 0 ) ; zcsIdx =
+ssCreateAndAddZcSignalInfo ( S ) ; ssSetZcSignalWidth ( S , zcsIdx , 1 ) ;
+ssSetZcSignalName ( S , zcsIdx , "Trig" ) ; ssSetZcSignalType ( S , zcsIdx ,
+SL_ZCS_TYPE_DISC ) ; ssSetZcSignalZcEventType ( S , zcsIdx ,
+SL_ZCS_EVENT_ALL_UP ) ; ssSetZcSignalNeedsEventNotification ( S , zcsIdx , 0
+) ; } ssSetOutputPortIsNonContinuous ( S , 0 , 0 ) ;
 ssSetOutputPortIsFedByBlockWithModesNoZCs ( S , 0 , 0 ) ;
 ssSetOutputPortIsNonContinuous ( S , 1 , 0 ) ;
 ssSetOutputPortIsFedByBlockWithModesNoZCs ( S , 1 , 0 ) ;
@@ -199,7 +236,7 @@ DISALLOW_SAMPLE_TIME_INHERITANCE ) ; ssSetAcceptsFcnCallInputs ( S ) ;
 ssSetModelReferenceNormalModeSupport ( S ,
 MDL_START_AND_MDL_PROCESS_PARAMS_OK ) ; ssSupportsMultipleExecInstances ( S ,
 false ) ; ssRegisterMsgForNotSupportingMultiExecInst ( S ,
- "<diag_root><diag id=\"Simulink:blocks:LoggingBlockDoesNotSupportMultiExecInstancesWithCustomMsg\" pr=\"d\"><arguments><arg type=\"encoded\">ZgBsAGkAZwBoAHQAQwBvAG4AdAByAG8AbABTAHkAcwB0AGUAbQAvAEMAbwBuAHQAcgBvAGwAIABTAHkAcwB0AGUAbQAvAFQAbwAgAFcAbwByAGsAcwBwAGEAYwBlAAAA</arg><arg type=\"encoded\">PABfAF8AaQBpAFMAUwBfAF8APgA8AC8AXwBfAGkAaQBTAFMAXwBfAD4AAAA=</arg><arg type=\"encoded\">PABfAF8AaQB0AGUAcgBCAGwAawBfAF8APgA8AC8AXwBfAGkAdABlAHIAQgBsAGsAXwBfAD4AAAA=</arg></arguments><hs><h>AAAAFIDtxUBb</h></hs><causes><diag id=\"Simulink:logLoadBlocks:ToWksBlkMultiExecInsNoSupportMsg\" pr=\"d\"><msg encoded=\"yes\">VABvACAAVwBvAHIAawBzAHAAYQBjAGUAIABiAGwAbwBjAGsAcwAgAGQAbwAgAG4AbwB0ACAAcwB1AHAAcABvAHIAdAAgAGQAYQB0AGEAIABsAG8AZwBnAGkAbgBnACAAaQBuAHMAaQBkAGUAIABGAG8AcgAgAEUAYQBjAGgAIABzAHUAYgBzAHkAcwB0AGUAbQBzAC4AIABDAG8AbgBzAGkAZABlAHIAIAB1AHMAaQBuAGcAIABzAGkAZwBuAGEAbAAgAGwAbwBnAGcAaQBuAGcAIAB0AG8AIABsAG8AZwAgAGQAYQB0AGEAIABpAG4AcwBpAGQAZQAgAHQAaABlACAARgBvAHIAIABFAGEAYwBoACAAcwB1AGIAcwB5AHMAdABlAG0ALgAgAFMAZQBlACAAPABhACAAaAByAGUAZgA9ACIAbQBhAHQAbABhAGIAOgBoAGUAbABwAHYAaQBlAHcAKABmAHUAbABsAGYAaQBsAGUAKABkAG8AYwByAG8AbwB0ACwAJwBzAGkAbQB1AGwAaQBuAGsAJwAsACcAaABlAGwAcAB0AGEAcgBnAGUAdABzAC4AbQBhAHAAJwApACwAJwBsAG8AZwBnAGkAbgBnAF8AcwBpAGcAbgBhAGwAcwAnACkAIgA+AE0AYQByAGsAIABhACAAUwBpAGcAbgBhAGwAIABmAG8AcgAgAFMAaQBnAG4AYQBsACAATABvAGcAZwBpAG4AZwA8AC8AYQA+ACAAaQBuACAAUwBpAG0AdQBsAGkAbgBrACAAZABvAGMAdQBtAGUAbgB0AGEAdABpAG8AbgAuAAAA</msg></diag></causes></diag></diag_root>"
+ "<diag_root><diag id=\"Simulink:blocks:BlockDoesNotSupportMultiExecInstances\" pr=\"d\"><arguments><arg type=\"encoded\">ZgBsAGkAZwBoAHQAQwBvAG4AdAByAG8AbABTAHkAcwB0AGUAbQAvAEMAbwBuAHQAcgBvAGwAIABTAHkAcwB0AGUAbQAvAFMAdABhAHQAZQAgAEUAcwB0AGkAbQBhAHQAbwByAC8AQQBsAHQAaQB0AHUAZABlACAARQBzAHQAaQBtAGEAdABvAHIALwBLAGEAbABtAGEAbgBGAGkAbAB0AGUAcgBfAGEAbAB0AGkAdAB1AGQAZQAvAGMAaABlAGMAawBFAG4AYQBiAGwAZQAvAEMAaABlAGMAawBTAGkAZwBuAGEAbABQAHIAbwBwAGUAcgB0AGkAZQBzAAAA</arg><arg type=\"encoded\">PABfAF8AaQBpAFMAUwBfAF8APgA8AC8AXwBfAGkAaQBTAFMAXwBfAD4AAAA=</arg><arg type=\"encoded\">PABfAF8AaQB0AGUAcgBCAGwAawBfAF8APgA8AC8AXwBfAGkAdABlAHIAQgBsAGsAXwBfAD4AAAA=</arg></arguments><hs><h>AAAABIBh20Bb</h></hs></diag></diag_root>"
 ) ; ssHasStateInsideForEachSS ( S , false ) ; ssSetOptions ( S ,
 SS_OPTION_ALLOW_CONSTANT_PORT_SAMPLE_TIME |
 SS_OPTION_PORT_SAMPLE_TIMES_ASSIGNED | SS_OPTION_SUPPORTS_ALIAS_DATA_TYPES |
@@ -214,7 +251,7 @@ mr_flightControlSystem_MdlInfoRegFcn ( S , "flightControlSystem" , & retVal )
 ssSetNumDWork ( S , 0 ) ; slmrRegisterSystemInitializeMethod ( S ,
 mdlInitializeConditions ) ; slmrRegisterSystemResetMethod ( S , mdlReset ) ;
 slmrRegisterPeriodicOutputUpdateMethod ( S , mdlPeriodicOutputUpdate ) ;
-ssSetSimulinkVersionGeneratedIn ( S , "10.3" ) ; ssSetNeedAbsoluteTime ( S ,
+ssSetSimulinkVersionGeneratedIn ( S , "10.7" ) ; ssSetNeedAbsoluteTime ( S ,
 1 ) ; } static void mdlInitializeSampleTimes ( SimStruct * S ) {
 ssSetSampleTime ( S , 0 , 0.005 ) ; ssSetOffsetTime ( S , 0 , 0 ) ;
 ssSetSampleTime ( S , 1 , 0.2 ) ; ssSetOffsetTime ( S , 1 , 0 ) ;
@@ -234,30 +271,33 @@ NULL ) ; int sysTid = 0 ; ssGetContextSysRanBCPtr ( S , & sysRanPtr ) ;
 ssGetContextSysTid ( S , & sysTid ) ; if ( sysTid == CONSTANT_TID ) { sysTid
 = 0 ; } f4qzdbbxmw ( S , slmrGetTopTidFromMdlRefChildTid ( S , 0 , false ) ,
 slmrGetTopTidFromMdlRefChildTid ( S , 1 , false ) ,
-slmrGetTopTidFromMdlRefChildTid ( S , 2 , true ) , sysRanPtr , sysTid , (
-NULL ) , ( NULL ) , 0 , - 1 ) ; ssSetModelMappingInfoPtr ( S , & ( lhjbdsj2rj
-. rtm . DataMapInfo . mmi ) ) ; if ( S -> mdlInfo -> genericFcn != ( NULL ) )
-{ _GenericFcn fcn = S -> mdlInfo -> genericFcn ; } }
+slmrGetTopTidFromMdlRefChildTid ( S , 2 , true ) , sysRanPtr , sysTid , ( (
+NULL ) ) , ( ( NULL ) ) , 0 , - 1 ) ; ssSetModelMappingInfoPtr ( S , & (
+lhjbdsj2rj . rtm . DataMapInfo . mmi ) ) ; if ( S -> mdlInfo -> genericFcn !=
+( NULL ) ) { _GenericFcn fcn = S -> mdlInfo -> genericFcn ; } dw0zngvhyq ( )
+; }
 #define MDL_START
 static void mdlStart ( SimStruct * S ) { mdlProcessParameters ( S ) ;
 k3yxem35zg ( ) ; }
 #define RTW_GENERATED_DISABLE
 static void mdlDisable ( SimStruct * S ) { bog0frvixl ( ) ; return ; } static
-void mdlOutputs ( SimStruct * S , int_T tid ) { SensorsBus const *
-i_bdony3ptwc = ( SensorsBus * ) ssGetInputPortSignal ( S , 1 ) ; real32_T *
-o_B_28_1 = ( real32_T * ) ssGetOutputPortSignal ( S , 0 ) ; uint8_T *
-o_o_B_28_2 = ( uint8_T * ) ssGetOutputPortSignal ( S , 1 ) ; if ( tid ==
-PARAMETER_TUNING_TID ) { flightControlSystemTID2 ( ) ; } if ( tid !=
+void mdlOutputs ( SimStruct * S , int_T tid ) { CommandBus const *
+i_esr4u5laa5 = ( CommandBus * ) ssGetInputPortSignal ( S , 0 ) ; SensorsBus
+const * i_bdony3ptwc = ( SensorsBus * ) ssGetInputPortSignal ( S , 1 ) ;
+real32_T * o_B_37_1 = ( real32_T * ) ssGetOutputPortSignal ( S , 0 ) ;
+uint8_T * o_o_B_37_2 = ( uint8_T * ) ssGetOutputPortSignal ( S , 1 ) ; if (
+tid == PARAMETER_TUNING_TID ) { flightControlSystemTID2 ( ) ; } if ( tid !=
 CONSTANT_TID && tid != PARAMETER_TUNING_TID ) { if ( ssIsSampleHit ( S , 0 ,
-tid ) ) { flightControlSystemTID0 ( i_bdony3ptwc , o_B_28_1 , o_o_B_28_2 ) ;
-} if ( ssIsSampleHit ( S , 1 , tid ) ) { flightControlSystemTID1 ( ) ; } } }
+tid ) ) { flightControlSystemTID0 ( i_esr4u5laa5 , i_bdony3ptwc , o_B_37_1 ,
+o_o_B_37_2 ) ; } if ( ssIsSampleHit ( S , 1 , tid ) ) {
+flightControlSystemTID1 ( ) ; } } }
 #define MDL_UPDATE
 static void mdlUpdate ( SimStruct * S , int_T tid ) { if ( ssIsSampleHit ( S
 , 0 , tid ) ) { pyvd4pdf3iTID0 ( ) ; } if ( ssIsSampleHit ( S , 1 , tid ) ) {
 pyvd4pdf3iTID1 ( ) ; } return ; } static void mdlTerminate ( SimStruct * S )
 { o2f5l50guo ( ) ; return ; }
 #define MDL_CLEANUP_RUNTIME_RESOURCES
-static void mdlCleanupRuntimeResources ( SimStruct * S ) { }
+static void mdlCleanupRuntimeResources ( SimStruct * S ) { m0l5se3ogg ( ) ; }
 #if !defined(MDL_SIM_STATE)
 #define MDL_SIM_STATE
 #endif

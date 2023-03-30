@@ -2,6 +2,7 @@
 #define RTW_HEADER_rt_nonfinite_h_
 #include <stddef.h>
 #include "rtwtypes.h"
+#define NOT_USING_NONFINITE_LITERALS   1
 
 extern real_T rtInf;
 extern real_T rtMinusInf;

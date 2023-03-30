@@ -1,6 +1,5 @@
 #ifndef BUILTIN_TYPEID_TYPES_H
 #define BUILTIN_TYPEID_TYPES_H
-#include "rtwtypes.h"
 #ifndef BUILTIN_TYPEID_TYPES
 #define BUILTIN_TYPEID_TYPES
 
@@ -16,9 +15,17 @@ typedef enum {
   SS_BOOLEAN = 8
 } BuiltInDTypeId;
 
-#define SS_NUM_BUILT_IN_DTYPE          ((int_T)SS_BOOLEAN+1)
+#define SS_NUM_BUILT_IN_DTYPE          ((int)SS_BOOLEAN+1)
 
-typedef int_T DTypeId;
+typedef int DTypeId;
+typedef enum {
+  SS_FCN_CALL = 9,
+  SS_INTEGER = 10,
+  SS_POINTER = 11,
+  SS_INTERNAL_DTYPE2 = 12,
+  SS_TIMER_UINT32_PAIR = 13,
+  SS_CONNECTION_TYPE = 14
+} PreDefinedDTypeId;
 
 #endif
 #endif

@@ -1,14 +1,14 @@
 @echo off
-
-call "setup_mingw.bat"
+set skipSetupArg=%1
+if "%skipSetupArg%" NEQ "skip_setup_msvc" (
+call "setup_msvc.bat"
+)
 
 cd .
-
-if "%1"=="" ("C:\PROGRA~1\MATLAB\R2021a\bin\win64\gmake"  -f rtwshared.mk all) else ("C:\PROGRA~1\MATLAB\R2021a\bin\win64\gmake"  -f rtwshared.mk %1)
+nmake -f rtwshared.mk  OPTS="-DNRT -DIS_SIM_TARGET"
 @if errorlevel 1 goto error_exit
-
-exit /B 0
+exit 0
 
 :error_exit
 echo The make command returned an error of %errorlevel%
-exit /B 1
+exit 1
