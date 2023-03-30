@@ -15,7 +15,7 @@ S = 80;
 DISK_KERNEL = 11;
 
 %% sector_form (tunning)
-num_threshold = 3; %원본 dots일 경우 500~600, preprocessingDots사용할 경우10~20개.
+num_threshold = 10; %원본 dots일 경우 500~600, preprocessingDots사용할 경우10~20개.
 degree_range1 = 30;
 straight_threshold = 45;
 
