@@ -36,7 +36,7 @@ ROI_Size = 60;
 
 %% control part
 %ref 형성시 얼마나 over해서 점을 보낼지 default=1;
-over_step=.7;
+over_step=.8;
 %mpc에서 몇번 째 step을 사용할 지. 3까지는 괜찮은데 그 이상 안 올리는 걸 추천
 step=1;
 %mpc 내부 parameter
@@ -127,4 +127,4 @@ Q=eye(12*Horizon);
 for i=1:12
    Q(12*(Horizon-1)+i)=0;
 end
-epsilon=[0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.0001 0.0001 0.001]';
+epsilon=[0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.00001 0.00001 0.001]';
