@@ -15,14 +15,16 @@ S = 80;
 DISK_KERNEL = 11;
 
 %% sector_form (tunning)
-num_threshold = 400; %원본 dots일 경우 500~600, preprocessingDots사용할 경우10~20개.
+num_threshold = 20; %원본 dots일 경우 500~600, preprocessingDots사용할 경우10~20개.
+afterTime = 1;
 degree_range1 = 30;
+%%straight_threshold = 45;
 
 %% track_generator(tunning)
 degree_range2 = 30;
 rotation_degree = 5;
-prev_degree_range = 30;
-radius = 40;
+prev_degree_range = 60; %이 값이 클수록 좀 더 안정적인듯?
+radius = 50;
 
 %% second_track_generator (tunning)
 degree_range3 = 30;
@@ -30,18 +32,14 @@ rotation_degree2 = 5;
 prev_degree_range2 = 80;
 radius2 = 33;
 
-
-
+%% ROI
+ROI_Size = 60;
 
 %% control part
-
 %ref 형성시 얼마나 over해서 점을 보낼지 default=1;
-over_step=2;
-
-
+over_step=1;
 %mpc에서 몇번 째 step을 사용할 지. 3까지는 괜찮은데 그 이상 안 올리는 걸 추천
-step=1; 
-
+step=1;
 %mpc 내부 parameter
 Horizon=10;
 dt=1;
@@ -118,8 +116,6 @@ row20=  [AB{20} AB{19} AB{18} AB{17} AB{16} AB{15} AB{14} AB{13} AB{12} AB{11} A
 PI=[row1;row2;row3;row4;row5;row6;row7;row8;row9;row10;row11;row12;row13;row14;row15;row16;row17;row18;row19;row20];
 modi_PI=zeros(12*Horizon,16*Horizon);
 modi_PI=PI(1:12*Horizon,1:16*Horizon);
-
-
 %cost matrix
 R=eye(16*Horizon);
 % R(13,13)=30;
@@ -132,4 +128,4 @@ Q=eye(12*Horizon);
 for i=1:12
    Q(12*(Horizon-1)+i)=0;
 end
-epsilon=[0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.0001 0.0001 0.001]';
+epsilon=[0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.00001 0.00001 0.001]';

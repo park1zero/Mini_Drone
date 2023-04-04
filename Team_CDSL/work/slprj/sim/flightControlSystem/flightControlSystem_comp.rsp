@@ -1,0 +1,11 @@
+﻿-IC:\Users\cdsl3\Documents\GitHub\Mini_Drone\Team_CDSL\work
+-I"C:\Program Files\MATLAB\R2023a\toolbox\eml\externalDependency\timefun"
+-IC:\Users\cdsl3\Documents\GitHub\Mini_Drone\Team_CDSL\work\slprj\sim\flightControlSystem
+-I"C:\Program Files\MATLAB\R2023a\extern\include"
+-I"C:\Program Files\MATLAB\R2023a\simulink\include"
+-I"C:\Program Files\MATLAB\R2023a\rtw\c\src"
+-I"C:\Program Files\MATLAB\R2023a\rtw\c\src\ext_mode\common"
+-I"C:\Program Files\MATLAB\R2023a\rtw\c\ert"
+-I"C:\Program Files\MATLAB\R2023a\toolbox\vision\include"
+-I"C:\Program Files\MATLAB\R2023a\toolbox\shared\dsp\vision\matlab\include"
+-IC:\Users\cdsl3\Documents\GitHub\Mini_Drone\Team_CDSL\work\slprj\sim\_sharedutils
