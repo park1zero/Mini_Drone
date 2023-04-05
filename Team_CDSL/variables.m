@@ -38,8 +38,18 @@ ROI_Size = 60;
 %% control part
 %ref 형성시 얼마나 over해서 점을 보낼지 default=1;
 over_step=1;
+% tuning 할 때 tunning 1,2를 조절하면서 하면 됩니다.
+tuning1=2;
+tuning2=8;
+
+% tunning11의 경우는 tunning1을 1을 기준으로 하는 사람은 2로, 2를 기준으로 하는 사람은 3, 3을 기준으로 하는
+% 사람은 4로 조절하고 하면 됩니다.
+tuning11=3;
+
 %mpc에서 몇번 째 step을 사용할 지. 3까지는 괜찮은데 그 이상 안 올리는 걸 추천
-step=1;
+corner_step=1;
+straight_step=2;
+
 %mpc 내부 parameter
 Horizon=10;
 dt=1;
