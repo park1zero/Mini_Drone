@@ -33,7 +33,7 @@ prev_degree_range2 = 80;
 radius2 = 33;
 
 %% Corner_detector (tunning)
-param_Hough = 0.2; % 0.2~0.8의 값 (값이 클수록 corner를 더 늦게 인식)
+param_Hough = 0.3; % 0.2~0.8의 값 (값이 클수록 corner를 더 늦게 인식)
 
 %% ROI
 ROI_Size = 60;
