@@ -1,18 +1,6 @@
-%% frame size
-FRAME_SIZE_HEIGHT=120;
-FRAME_SIZE_WIDTH=160;
-COG_X=FRAME_SIZE_HEIGHT/2;
-COG_Y=FRAME_SIZE_WIDTH/2;
-
-%% binarizer
-BINARIZER_THRESHOLD = 100;
-G_B_GAIN = 2;
-
-%% 4dots picker
-S = 80;
-
-%% Landing mark detector
-DISK_KERNEL = 11;
+%% pixel image
+COG_X = 60;
+COG_Y = 80;
 
 %% sector_form (tunning)
 num_threshold = 20; %원본 dots일 경우 500~600, preprocessingDots사용할 경우10~20개.
@@ -42,8 +30,8 @@ ROI_Size = 60;
 %ref 형성시 얼마나 over해서 점을 보낼지 default=1;
 over_step=1;
 % tuning 할 때 tunning 1,2를 조절하면서 하면 됩니다.
-tuning1=2;
-tuning2=8;
+tuning1=3;
+tuning2=7;
 
 % tunning11의 경우는 tunning1을 1을 기준으로 하는 사람은 2로, 2를 기준으로 하는 사람은 3, 3을 기준으로 하는
 % 사람은 4로 조절하고 하면 됩니다.
