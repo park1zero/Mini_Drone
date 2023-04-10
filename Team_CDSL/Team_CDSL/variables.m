@@ -15,7 +15,7 @@ S = 80;
 DISK_KERNEL = 11;
 
 %% sector_form (tuning)
-num_threshold = 13; %원본 dots일 경우 500~600, preprocessingDots사용할 경우10~20개.
+num_threshold = 13; %�먮낯 dots�� 寃쎌슦 500~600, preprocessingDots�ъ슜�� 寃쎌슦10~20媛�.
 afterTime = 0.5;
 degree_range1 = 30;
 %%straight_threshold = 45;
@@ -23,7 +23,7 @@ degree_range1 = 30;
 %% track_generator(tuning)
 degree_range2 = 30;
 rotation_degree = 5;
-prev_degree_range = 60; %이 값이 클수록 좀 더 안정적인듯?
+prev_degree_range = 60; %�� 媛믪씠 �댁닔濡� 醫� �� �덉젙�곸씤��?
 radius = 50;
 
 %% second_track_generator (tuning)
@@ -33,27 +33,27 @@ prev_degree_range2 = 80;
 radius2 = 33;
 
 %% Corner_detector (tuning)
-param_Hough = 0.3; % 0.2~0.8의 값 (값이 클수록 corner를 더 늦게 인식)
+param_Hough = 0.3; % 0.2~0.8�� 媛� (媛믪씠 �댁닔濡� corner瑜� �� ��쾶 �몄떇)
 
 %% ROI
 ROI_Size = 120;
 
 %% control part
-%ref 형성시 얼마나 over해서 점을 보낼지 default=1;
+%ref �뺤꽦�� �쇰쭏�� over�댁꽌 �먯쓣 蹂대궪吏� default=1;
 over_step=0.3;
-% tuning 할 때 tunning 1,2를 조절하면서 하면 됩니다.
+% tuning �� �� tunning 1,2瑜� 議곗젅�섎㈃�� �섎㈃ �⑸땲��.
 tuning1=3;
 tuning2=7;
 
-% tunning11의 경우는 tunning1을 1을 기준으로 하는 사람은 2로, 2를 기준으로 하는 사람은 3, 3을 기준으로 하는
-% 사람은 4로 조절하고 하면 됩니다.
+% tunning11�� 寃쎌슦�� tunning1�� 1�� 湲곗��쇰줈 �섎뒗 �щ엺�� 2濡�, 2瑜� 湲곗��쇰줈 �섎뒗 �щ엺�� 3, 3�� 湲곗��쇰줈 �섎뒗
+% �щ엺�� 4濡� 議곗젅�섍퀬 �섎㈃ �⑸땲��.
 tuning11=2;
 
-%mpc에서 몇번 째 step을 사용할 지. 3까지는 괜찮은데 그 이상 안 올리는 걸 추천
+%mpc�먯꽌 紐뉖쾲 吏� step�� �ъ슜�� 吏�. 3源뚯��� 愿쒖갖���� 洹� �댁긽 �� �щ━�� 嫄� 異붿쿇
 corner_step=1;
 straight_step=2;
 
-%mpc 내부 parameter
+%mpc �대� parameter
 Horizon=10;
 dt=1;
 %gravity
