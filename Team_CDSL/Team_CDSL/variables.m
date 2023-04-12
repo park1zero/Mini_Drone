@@ -15,7 +15,7 @@ S = 80;
 DISK_KERNEL = 13;
 
 %% sector_form (tuning)
-num_threshold = 8; %원본 dots일 경우 500~600, preprocessingDots사용할 경우10~20개.
+num_threshold = 13; %원본 dots일 경우 500~600, preprocessingDots사용할 경우10~20개.
 afterTime = 0.5;
 degree_range1 = 30;
 %%straight_threshold = 45;
@@ -40,11 +40,12 @@ ROI_Size = 120;
 
 %% control part
 %ref 형성시 얼마나 over해서 점을 보낼지 default=1;
-over_step=0.8;
-straight_over_step = over_step+0.8;
+slow=3;
+over_step=0.3;
+straight_over_step = over_step+1;
 % tuning 할 때 tunning 1,2를 조절하면서 하면 됩니다.
-tuning1=1;
-tuning2=9;
+tuning1=3;
+tuning2=7;
 
 % tunning11의 경우는 tunning1을 1을 기준으로 하는 사람은 2로, 2를 기준으로 하는 사람은 3, 3을 기준으로 하는
 % 사람은 4로 조절하고 하면 됩니다.
@@ -52,7 +53,7 @@ tuning11=2;
 
 %mpc에서 몇번 째 step을 사용할 지. 3까지는 괜찮은데 그 이상 안 올리는 걸 추천
 corner_step=1;
-straight_step=3;
+straight_step=2;
 
 %mpc 내부 parameter
 Horizon=10;
