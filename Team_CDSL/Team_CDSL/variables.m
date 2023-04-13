@@ -1,61 +1,52 @@
-%% frame size
-FRAME_SIZE_HEIGHT=120;
-FRAME_SIZE_WIDTH=160;
-COG_X=FRAME_SIZE_HEIGHT/2;
-COG_Y=FRAME_SIZE_WIDTH/2;
+%% Frame condition
+VisualParam.H = 120; %height of frame
+VisualParam.W = 160; %width of frame
+VisualParam.CX=60; % Center of X
+VisualParam.CY=80; % Center of Y
 
-%% binarizer
-BINARIZER_THRESHOLD = 100;
-G_B_GAIN = 2;
+%% Binarizer
+VisualParam.R_THRESHOLD = 150;
 
-%% 4dots picker
-S = 80;
+%% Corner_detector
+VisualParam.HOUGH = 0.3;
 
 %% Landing mark detector
-DISK_KERNEL = 13;
+DISK_SIZE = 12;
+VisualParam.ROI_SIZE = 120;
 
-%% sector_form (tuning)
-num_threshold = 13; %원본 dots일 경우 500~600, preprocessingDots사용할 경우10~20개.
-afterTime = 0.5;
-degree_range1 = 30;
-%%straight_threshold = 45;
+%% Landing checker
+VisualParam.landing_threshold = 10;
 
-%% track_generator(tuning)
-degree_range2 = 30;
-rotation_degree = 5;
-prev_degree_range = 60; %이 값이 클수록 좀 더 안정적인듯?
-radius = 50;
+%% go_straight (기존 sector_form)
+after_time = 0.5;
+VisualParam.dots_threshold = 8; % 기존 num_threshold
+VisualParam.angle_of_view1= 30; % 기존 degree_range1
 
-%% second_track_generator (tuning)
-degree_range3 = 30;
-rotation_degree2 = 5;
-prev_degree_range2 = 80;
-radius2 = 33;
+%% second_ref_generator
+VisualParam.angle_of_rotation = 5; % 기존 rotation_degree2
+VisualParam.angle_of_view2 = 30; % 기존 degree_range3
+VisualParam.erased_angle2 = 80; % 기존 prev_degree_range2
+VisualParam.radius2 = 33; % 기존 radius2
 
-%% Corner_detector (tuning)
-param_Hough = 0.3; % 0.2~0.8의 값 (값이 클수록 corner를 더 늦게 인식)
+%% new_track_generator
+VisualParam.angle_of_view3 = 30; % 기존 degree_range2
+VisualParam.erased_angle3 = 60; % 기존 prev_degree_range
+VisualParam.radius3 = 50; % 기존 radius
 
-%% ROI
-ROI_Size = 120;
+%% ref extender
+MPCParam.over_step=0.3;
+MPCParam.straight_over_step = MPCParam.over_step+1;
 
-%% control part
-%ref 형성시 얼마나 over해서 점을 보낼지 default=1;
-slow=3;
-over_step=0.3;
-straight_over_step = over_step+1;
-% tuning 할 때 tunning 1,2를 조절하면서 하면 됩니다.
-tuning1=3;
-tuning2=7;
+MPCParam.tuning1=3;
+MPCParam.tuning2=7;
 
-% tunning11의 경우는 tunning1을 1을 기준으로 하는 사람은 2로, 2를 기준으로 하는 사람은 3, 3을 기준으로 하는
-% 사람은 4로 조절하고 하면 됩니다.
-tuning11=2;
+MPCParam.tuning11=2;
 
-%mpc에서 몇번 째 step을 사용할 지. 3까지는 괜찮은데 그 이상 안 올리는 걸 추천
-corner_step=1;
-straight_step=2;
+%% MPC
+MPCParam.corner_step=1;
+MPCParam.straight_step=2;
 
-%mpc 내부 parameter
+%mpc parameter
 Horizon=10;
 dt=1;
 %gravity
@@ -91,12 +82,12 @@ for i = 1:20
 A_n{i}=temp;
 temp=temp*Total_A;
 end
-Gamma=zeros(12*Horizon,12);
+MPCParam.Gamma=zeros(12*Horizon,12);
 for i =1:Horizon
 temp=A_n{i};
 for j=1:12
 for k=1:12
-Gamma(j+12*(i-1),k)=temp(j,k);
+MPCParam.Gamma(j+12*(i-1),k)=temp(j,k);
 end
 end
 end
@@ -129,18 +120,18 @@ row18=  [AB{18} AB{17} AB{16} AB{15} AB{14} AB{13} AB{12} AB{11} AB{10} AB{9} AB
 row19=  [AB{19} AB{18} AB{17} AB{16} AB{15} AB{14} AB{13} AB{12} AB{11} AB{10} AB{9} AB{8} AB{7} AB{6} AB{5} AB{4} AB{3} AB{2} Total_B zero12];
 row20=  [AB{20} AB{19} AB{18} AB{17} AB{16} AB{15} AB{14} AB{13} AB{12} AB{11} AB{10} AB{9} AB{8} AB{7} AB{6} AB{5} AB{4} AB{3} AB{2} Total_B];
 PI=[row1;row2;row3;row4;row5;row6;row7;row8;row9;row10;row11;row12;row13;row14;row15;row16;row17;row18;row19;row20];
-modi_PI=zeros(12*Horizon,16*Horizon);
-modi_PI=PI(1:12*Horizon,1:16*Horizon);
+MPCParam.modi_PI=zeros(12*Horizon,16*Horizon);
+MPCParam.modi_PI=PI(1:12*Horizon,1:16*Horizon);
 %cost matrix
-R=eye(16*Horizon);
-% R(13,13)=30;
-% R(14,14)=30;
-% R(15,15)=30;
-% R(16,16)=30;
-Q=eye(12*Horizon);
-% Q(10,10)=10000;
-% Q(11,11)=10000;
+MPCParam.R=eye(16*Horizon);
+% MPCParam.R(13,13)=30;
+% MPCParam.R(14,14)=30;
+% MPCParam.R(15,15)=30;
+% MPCParam.R(16,16)=30;
+MPCParam.Q=eye(12*Horizon);
+% MPCParam.Q(10,10)=10000;
+% MPCParam.Q(11,11)=10000;
 for i=1:12
-Q(12*(Horizon-1)+i)=0;
+MPCParam.Q(12*(Horizon-1)+i)=0;
 end
-epsilon=[0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.00001 0.00001 0.001]';
+MPCParam.epsilon=[0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.00001 0.00001 0.001]';
