@@ -34,16 +34,16 @@ VisualParam.erased_angle3 = 60; % 기존 prev_degree_range
 VisualParam.radius3 = 50; % 기존 radius
 
 %% ref extender
-MPCParam.over_step=0.3;
-MPCParam.straight_over_step = MPCParam.over_step+1;
+MPCParam.over_step=1;
+MPCParam.straight_over_step = 1.3;
 
 MPCParam.tuning1=3;
 MPCParam.tuning2=7;
 
-MPCParam.tuning11=2;
+MPCParam.tuning11=3;
 
 %% MPC
-MPCParam.corner_step=1;
+MPCParam.corner_step=2;
 MPCParam.straight_step=2;
 
 %mpc parameter

@@ -7,18 +7,46 @@
 %endfunction
 %function ChartDataMap(block, system) void
   %createrecord ChartDataElements {\
-    NumChartData   1 \
+    NumChartData   5 \
     ChartDataDefaults {\
       RecordType   "ChartData"\
       Dimensions   []\
       IsTestPoint  0\
     }\
     ChartData {\
-      Name         "check"\
+      Name         "x"\
       Description  "EmlPersistent"\
       SFName       ""\
       Path         ""\
-      SrcLocation  "flightControlSystem:3524:72-77"\
+      SrcLocation  "flightControlSystem:3546:48-49"\
+    }\
+    ChartData {\
+      Name         "y"\
+      Description  "EmlPersistent"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "flightControlSystem:3546:61-62"\
+    }\
+    ChartData {\
+      Name         "tempf"\
+      Description  "EmlPersistent"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "flightControlSystem:3546:74-79"\
+    }\
+    ChartData {\
+      Name         "cnt"\
+      Description  "EmlPersistent"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "flightControlSystem:3546:91-94"\
+    }\
+    ChartData {\
+      Name         "land"\
+      Description  "EmlPersistent"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "flightControlSystem:3546:106-110"\
     }\
   }
   %return ChartDataElements

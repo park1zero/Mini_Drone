@@ -7,7 +7,7 @@
 %endfunction
 %function ChartDataMap(block, system) void
   %createrecord ChartDataElements {\
-    NumChartData   11 \
+    NumChartData   6 \
     ChartDataDefaults {\
       RecordType   "ChartData"\
       Dimensions   []\
@@ -21,19 +21,11 @@
       SrcLocation  ""\
     }\
     ChartData {\
-      Name         "theta"\
+      Name         "theta1"\
       Description  "ChartLocal"\
       SFName       ""\
-      Path         "theta"\
+      Path         "theta1"\
       SrcLocation  ""\
-    }\
-    ChartData {\
-      Name         "tempRef"\
-      Description  "ChartLocal"\
-      SFName       ""\
-      Path         "tempRef"\
-      SrcLocation  ""\
-      Dimensions   [1,2]\
     }\
     ChartData {\
       Name         "is_active_c6_flightControlSystem"\
@@ -50,39 +42,11 @@
       SrcLocation  ""\
     }\
     ChartData {\
-      Name         "is_new_track_generation"\
+      Name         "is_track_judgement"\
       Description  "StateActiveChild"\
       SFName       ""\
-      Path         "new_track_generation"\
+      Path         "track_judgement"\
       SrcLocation  ""\
-    }\
-    ChartData {\
-      Name         "freq"\
-      Description  "EmlPersistent"\
-      SFName       ""\
-      Path         ""\
-      SrcLocation  "C:\Program Files\MATLAB\R2023a\toolbox\shared\coder\coder\lib\+coder\+internal\+time\CoderTimeAPI.m:5189-5193"\
-    }\
-    ChartData {\
-      Name         "freq_not_empty"\
-      Description  "EmlPersistentSentinel"\
-      SFName       ""\
-      Path         ""\
-      SrcLocation  "C:\Program Files\MATLAB\R2023a\toolbox\shared\coder\coder\lib\+coder\+internal\+time\CoderTimeAPI.m:5189-5193"\
-    }\
-    ChartData {\
-      Name         "savedTime"\
-      Description  "EmlPersistent"\
-      SFName       ""\
-      Path         ""\
-      SrcLocation  "C:\Program Files\MATLAB\R2023a\toolbox\shared\coder\coder\lib\+coder\+internal\+time\+impl\timeKeeper.m:170-179"\
-    }\
-    ChartData {\
-      Name         "savedTime_not_empty"\
-      Description  "EmlPersistentSentinel"\
-      SFName       ""\
-      Path         ""\
-      SrcLocation  "C:\Program Files\MATLAB\R2023a\toolbox\shared\coder\coder\lib\+coder\+internal\+time\+impl\timeKeeper.m:170-179"\
     }\
     ChartData {\
       Name         "temporalCounter_i1"\
